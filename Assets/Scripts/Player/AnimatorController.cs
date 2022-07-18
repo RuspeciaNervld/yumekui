@@ -58,4 +58,9 @@ public class AnimatorController : MonoBehaviour {
             input.dashTrigger = false;
         }
     }
+
+    public void move() {
+
+        AudioManager.Instance.playOnce(AudioManager.Instance.slimeMove);
+    }
 }

@@ -1,36 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimatorController : MonoBehaviour
-{
+public class AnimatorController : MonoBehaviour {
+
     [Header("=== objects ===")]
     private Rigidbody2D rb;
     private Animator anim;
     private IUserInput input;
+    private KeyboardInput keyInput;
+    private JoystickInput joyInput;
 
-
-    void Awake() {
+    private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        if (Input.GetJoystickNames()[0] == "") { //没插手柄
-            input = GetComponent<KeyboardInput>();
-        } else {
-            input = GetComponent<JoystickInput>();
-        }
+
+        keyInput = GetComponent<KeyboardInput>();
+        joyInput = GetComponent<JoystickInput>();
+
+        //if (Input.GetJoystickNames()[0] == "") { //没插手柄
+        //    input = GetComponent<KeyboardInput>();
+        //} else {
+        //    input = GetComponent<JoystickInput>();
+        //}
     }
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void Start() {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    private void Update() {
+        if (InputListener.Instance.keyHold) {
+            input = keyInput;
+        } else {
+            input = joyInput;
+        }
+
         if (input.xDir == 1) {
             transform.eulerAngles = new Vector3(0, 0, 0);
-        }else if(input.xDir == -1) {
+        } else if (input.xDir == -1) {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
 

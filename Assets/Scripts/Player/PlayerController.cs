@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator),typeof(Rigidbody2D))] //指定必要的关联组件
-public class PlayerController : MonoBehaviour
-{
+[RequireComponent(typeof(Animator), typeof(Rigidbody2D))] //指定必要的关联组件
+public class PlayerController : MonoBehaviour {
+
     [Header("=== objects ===")]
     private Rigidbody2D rb;
     private Animator anim;
@@ -21,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [Header("=== ability settings ===")]
     public bool canDoubleJump;
     public bool canDash;
-
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private float dashColdTime;
@@ -29,25 +26,35 @@ public class PlayerController : MonoBehaviour
     private bool doubleJumped;
     private bool doubleJump;
     private bool holdingJump;
+    private KeyboardInput keyInput;
+    private JoystickInput joyInput;
 
-    void Awake() {
+    private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        keyInput = GetComponent<KeyboardInput>();
+        joyInput = GetComponent<JoystickInput>();
+
         if (Input.GetJoystickNames()[0] == "") { //没插手柄
-            input = GetComponent<KeyboardInput>();
+            input = keyInput;
         } else {
-            input = GetComponent<JoystickInput>();
+            input = joyInput;
         }
     }
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void Start() {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    private void Update() {
+        if (InputListener.Instance.keyHold) {
+            input = keyInput;
+        } else {
+            input = joyInput;
+        }
+
         if (input.isGrounded) {
             doubleJumped = false;
             holdingJump = true;
@@ -60,7 +67,7 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = jumpTime;
         }
         if (input.jump && isJumping && holdingJump) { // 主动上升阶段（持续按住跳跃）
-            if(jumpTimeCounter > 0) {
+            if (jumpTimeCounter > 0) {
                 rb.velocity = Vector2.up * jumpForce;
                 jumpTimeCounter -= Time.deltaTime;
             } else {
@@ -94,10 +101,9 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
     }
 
-    void FixedUpdate() { // 物理相关的更新放在这里
-        rb.velocity = new Vector2(input.xDir * (dashTimeCounter < 0?speed:dashSpeed), rb.velocity.y);
+    private void FixedUpdate() { // 物理相关的更新放在这里
+        rb.velocity = new Vector2(input.xDir * (dashTimeCounter < 0 ? speed : dashSpeed), rb.velocity.y);
     }
 }

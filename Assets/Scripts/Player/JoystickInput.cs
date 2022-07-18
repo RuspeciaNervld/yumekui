@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class JoystickInput : IUserInput
-{
+public class JoystickInput : IUserInput {
+
     [Header("=== key settings ===")]
     public string axisX = "X axis";
     public string axisY = "Y axis";
@@ -20,11 +18,10 @@ public class JoystickInput : IUserInput
     public string home = "joystick button 7";
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void Start() {
     }
-    void Update() {
+
+    private void Update() {
         // 获取跳跃信号，且是连续的
         jump = Input.GetKey(btnA);
 
@@ -32,13 +29,11 @@ public class JoystickInput : IUserInput
         xDir = (int)Input.GetAxis(axisX);
 
         // 冲刺信号
-        if ((int)Input.GetAxis(LRT)==1) {
+        if ((int)Input.GetAxis(LRT) == -1) {
             dash = true;
         }
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);
     }
-
-
 }

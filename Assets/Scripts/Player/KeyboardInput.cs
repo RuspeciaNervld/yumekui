@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class KeyboardInput : IUserInput
 {
-    [Header("=== objects ===")]
-    public LayerMask ground; //地面层
-    public Collider2D c2d; // 自身的碰撞器
-
     [Header("=== key settings ===")]
     public string keyUp = "w";
     public string keyDown = "s";
@@ -33,19 +29,16 @@ public class KeyboardInput : IUserInput
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // 获取跳跃信号，且是连续的
         jump = Input.GetKey(keyJump);  //! GetKey是对应实际键值，GetButton是虚拟键值
-        
+
         // 获取水平方向移动信号
         if (Input.GetKey(keyRight)) {
             xDir = 1;
-        }else if (Input.GetKey(keyLeft)) {
+        } else if (Input.GetKey(keyLeft)) {
             xDir = -1;
-        }else {
+        } else {
             xDir = 0;
         }
 
@@ -56,7 +49,9 @@ public class KeyboardInput : IUserInput
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);
-
-
     }
+
+
+
+
 }

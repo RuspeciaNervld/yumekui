@@ -13,7 +13,11 @@ public class AnimatorController : MonoBehaviour
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        input = GetComponent<IUserInput>();
+        if (Input.GetJoystickNames()[0] == "") { //Ã»²åÊÖ±ú
+            input = GetComponent<KeyboardInput>();
+        } else {
+            input = GetComponent<JoystickInput>();
+        }
     }
     // Start is called before the first frame update
     void Start()

@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 1097757199}
   - component: {fileID: 1097757203}
   - component: {fileID: 1097757206}
+  - component: {fileID: 1097757207}
   - component: {fileID: 1097757205}
   - component: {fileID: 1097757204}
   m_Layer: 0
@@ -780,15 +781,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471f44b3e0967ec4c83fbd494a1ba7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
+  c2d: {fileID: 1097757200}
   xDir: 0
   jump: 0
   isGrounded: 0
   dash: 0
   dashTrigger: 0
-  ground:
-    serializedVersion: 2
-    m_Bits: 8
-  c2d: {fileID: 1097757200}
   keyUp: w
   keyDown: s
   keyLeft: a
@@ -798,3 +799,37 @@ MonoBehaviour:
   mouseEnable: 1
   mouseSensitivityX: 1
   mouseSensitivityY: 1
+--- !u!114 &1097757207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097757198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f12a78efb9b0a74cb951baef4ef10fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
+  c2d: {fileID: 1097757200}
+  xDir: 0
+  jump: 0
+  isGrounded: 0
+  dash: 0
+  dashTrigger: 0
+  axisX: X axis
+  axisY: Y axis
+  axis2X: 4th axis
+  axis2Y: 5th axis
+  btnA: joystick button 0
+  btnB: joystick button 1
+  btnX: joystick button 2
+  btnY: joystick button 3
+  LB: joystick button 4
+  RB: joystick button 5
+  LRT: 3rd axis
+  back: joystick button 6
+  home: joystick button 7

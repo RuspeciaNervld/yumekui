@@ -33,7 +33,11 @@ public class PlayerController : MonoBehaviour
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        input = GetComponent<IUserInput>();
+        if (Input.GetJoystickNames()[0] == "") { //没插手柄
+            input = GetComponent<KeyboardInput>();
+        } else {
+            input = GetComponent<JoystickInput>();
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -57,7 +61,6 @@ public class PlayerController : MonoBehaviour
         }
         if (input.jump && isJumping && holdingJump) { // 主动上升阶段（持续按住跳跃）
             if(jumpTimeCounter > 0) {
-                Debug.Log("3");
                 rb.velocity = Vector2.up * jumpForce;
                 jumpTimeCounter -= Time.deltaTime;
             } else {
@@ -68,12 +71,10 @@ public class PlayerController : MonoBehaviour
         //! 二段跳模块
         if (canDoubleJump) {
             if (!input.isGrounded && !input.jump && !doubleJumped) { // 空中松开跳跃
-                Debug.Log("1");
                 doubleJump = true;
                 holdingJump = false;
             }
             if (input.jump && !input.isGrounded && doubleJump) { // 空中第一次再次按下跳跃
-                Debug.Log("2");
                 rb.velocity = Vector2.up * jumpForce;
                 doubleJump = false;
                 doubleJumped = true;

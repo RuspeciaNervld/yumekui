@@ -37,6 +37,8 @@ public class TestMgr : MonoBehaviour
         //this.player.AddComponent<CharactorCtrl>().init(); //! 可以在这里挂脚本并初始化，可以传递参数，给出特定的数值
         this.player.name = "Player";
         //this.player.AddComponent<PlayerOpt>().init();
+        this.player.AddComponent<Player>().init(100, 10, 5,true,0,0);
+        
         // end
 
         //todo 放我们的敌人

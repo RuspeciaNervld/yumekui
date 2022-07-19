@@ -15,7 +15,7 @@ public class AttackController : MonoBehaviour
     private bool isAttacking = false;
 
     //! 伴随生物诞生即初始化
-    public void init() {
+    internal void init() {
         this.hurtTime = 0;
         this.endTime = 0;
         this.currentTime = 0;

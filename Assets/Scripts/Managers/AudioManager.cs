@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource),typeof(AudioSource))]
+//[RequireComponent(typeof(AudioSource),typeof(AudioSource))]
 public class AudioManager : ISingleton<AudioManager>
 {
     [Header("=== objects ===")]
@@ -12,6 +12,13 @@ public class AudioManager : ISingleton<AudioManager>
     [Header("=== audios ===")]
     public AudioClip slimeMove;
     public AudioClip angelFallDown;
+
+    public override void Awake() {
+        oneShot = gameObject.AddComponent<AudioSource>();
+        bgm = gameObject.AddComponent<AudioSource>();
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {

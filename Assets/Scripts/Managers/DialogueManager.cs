@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : ISingleton<DialogueManager> {
+public class DialogueManager : MonoBehaviour {
+    public static DialogueManager Instance = null;
+
     public GameObject dialogueBox;
     public Text dialogueText, nameText;
     [TextArea(1, 3)]
-    [SerializeField] private string[] dialogueLines;
+    [SerializeField] private string[] dialogueLines = { "n-ÅÔ°×", "ÄãÊÇÒ»¸öÒ»¸öÊ·À³Ä·°¡°¡°¡°¡°¡" };
     [SerializeField] private int currentLine;
     [SerializeField] private float textInterval;
     private bool isScrolling;
+
+    private void Awake() {
+        DialogueManager.Instance = this;
+    }
 
     private void Start() {
         CheckName();
@@ -62,5 +68,12 @@ public class DialogueManager : ISingleton<DialogueManager> {
             yield return new WaitForSeconds(textInterval);
         }
         isScrolling = false;
+    }
+
+    public void init() {
+        dialogueBox =GameObject.Find("Canvas/TestUI/DialoguePanel");
+        dialogueText = dialogueBox.transform.GetChild(0).GetComponent<Text>();
+        nameText = dialogueBox.transform.GetChild(1).GetComponent<Text>();
+        //nameText = GameObject.Find("TestDialogue/DialoguePanel/Text_speaker").GetComponent<Text>();
     }
 }

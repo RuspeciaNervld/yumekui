@@ -19,4 +19,8 @@ public class GameApp : ISingleton<GameApp>
         map.AddComponent<TestMgr>().InitGame();
         // end
     }
+
+    public void EnterMainMenu() {
+
+    }
 }

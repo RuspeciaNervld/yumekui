@@ -17,6 +17,7 @@ public class ICreature : MonoBehaviour
     protected AttackController attackController = null;//! 有可能不会被赋值的要事先设为null
     protected BeHurtController beHurtController = null;
 
+    
     /// <summary>
     /// 可以创建可攻击，不可攻击，可被攻击，不可被攻击的生物，默认受伤后不无敌且不硬直
     /// </summary>

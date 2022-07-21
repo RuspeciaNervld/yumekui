@@ -24,6 +24,7 @@ public class JoystickInput : IUserInput {
     private void Update() {
         // 获取跳跃信号，且是连续的
         jump = Input.GetKey(btnA);
+        jumpKeyDown = Input.GetKeyDown(btnA);
 
         // 获取水平方向移动信号
         xDir = (int)Input.GetAxis(axisX);
@@ -35,5 +36,7 @@ public class JoystickInput : IUserInput {
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);
+        // 挂壁信号
+        isOnWall = c2d.IsTouchingLayers(wall);
     }
 }

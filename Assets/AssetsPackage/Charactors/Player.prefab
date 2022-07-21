@@ -170,10 +170,14 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  wall:
+    serializedVersion: 2
+    m_Bits: 64
   c2d: {fileID: 214128341213616579}
   xDir: 0
   jump: 0
   isGrounded: 0
+  isOnWall: 0
   dash: 0
   dashTrigger: 0
   keyUp: w
@@ -200,10 +204,14 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  wall:
+    serializedVersion: 2
+    m_Bits: 64
   c2d: {fileID: 214128341213616579}
   xDir: 0
   jump: 0
   isGrounded: 0
+  isOnWall: 0
   dash: 0
   dashTrigger: 0
   axisX: X axis
@@ -231,6 +239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49855dae6eb5c64f9b7936cc92dbe62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  wall:
+    serializedVersion: 2
+    m_Bits: 0
+  c2d: {fileID: 0}
   speed: 3
   jumpForce: 5
   jumpTime: 0.5
@@ -239,6 +254,7 @@ MonoBehaviour:
   dashTime: 1
   canDoubleJump: 1
   canDash: 1
+  canStayWall: 0
 --- !u!114 &214128341213616583
 MonoBehaviour:
   m_ObjectHideFlags: 0

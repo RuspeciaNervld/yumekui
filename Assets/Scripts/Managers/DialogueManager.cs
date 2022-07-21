@@ -135,7 +135,6 @@ public class DialogueManager : MonoBehaviour {
                 currentIdx = csvLines[currentIdx].to;
                 break;
         }
-        
     }
 
     /// <summary>

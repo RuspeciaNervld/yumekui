@@ -4,6 +4,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     [Header("=== objects ===")]
+    public LayerMask ground; //地面层
+    public LayerMask wall;
+
+    public Collider2D c2d; // 自身的碰撞器
+
     private Rigidbody2D rb;
     private Animator anim;
     private IUserInput input;
@@ -15,17 +20,26 @@ public class PlayerController : MonoBehaviour {
     public float dashCD;
     public float dashSpeed;
     public float dashTime;
+    public float wallForce;
+    public float targetG;
+
+    public float woodTime; //! 无法操控时间
 
     [Header("=== ability settings ===")]
     public bool canDoubleJump;
     public bool canDash;
+    public bool canStayWall;
+    public bool canControl;
+
     private float jumpTimeCounter;
     private float dashTimeCounter;
     private float dashColdTime;
+
     private bool isJumping;
     private bool doubleJumped;
     private bool doubleJump;
     private bool holdingJump;
+
     private KeyboardInput keyInput;
     private JoystickInput joyInput;
 
@@ -49,6 +63,12 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
+        if (!canControl) {
+            input.enabled = false;
+        } else {
+            input.enabled = true;
+        }
+
         if (InputListener.Instance.keyHold) {
             input = keyInput;
         } else {
@@ -58,7 +78,7 @@ public class PlayerController : MonoBehaviour {
         if (input.isGrounded) {
             doubleJumped = false;
             holdingJump = true;
-        }
+        } 
 
         //! 基本操作
         if (input.isGrounded && input.jump) { // 在地面上按了跳跃
@@ -74,6 +94,7 @@ public class PlayerController : MonoBehaviour {
                 isJumping = false;
             }
         }
+        
 
         //! 二段跳模块
         if (canDoubleJump) {
@@ -85,6 +106,21 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = Vector2.up * jumpForce;
                 doubleJump = false;
                 doubleJumped = true;
+            }
+        }
+
+        //! 挂壁模块
+        if (canStayWall) {
+            if (input.isOnWall && !input.isGrounded) {
+                if (rb.gravityScale != targetG) {
+                    rb.gravityScale = targetG;
+                    rb.velocity = Vector2.zero;
+                }
+                if (input.jumpKeyDown) {
+                    rb.velocity = new Vector2(0, jumpForce);
+                }
+            } else {
+                rb.gravityScale = 1f;
             }
         }
 

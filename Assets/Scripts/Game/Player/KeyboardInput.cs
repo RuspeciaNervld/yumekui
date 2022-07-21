@@ -27,6 +27,7 @@ public class KeyboardInput : IUserInput {
     private void Update() {
         // 获取跳跃信号，且是连续的
         jump = Input.GetKey(keyJump);  //! GetKey是对应实际键值，GetButton是虚拟键值
+        jumpKeyDown = Input.GetKeyDown(keyJump);
 
         // 获取水平方向移动信号
         if (Input.GetKey(keyRight)) {
@@ -44,5 +45,7 @@ public class KeyboardInput : IUserInput {
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);
+        // 挂壁信号
+        isOnWall = c2d.IsTouchingLayers(wall);
     }
 }

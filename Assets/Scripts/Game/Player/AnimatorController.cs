@@ -63,6 +63,6 @@ public class AnimatorController : MonoBehaviour {
 
     public void move() {
 
-        AudioManager.Instance.playOnce(AudioManager.Instance.slimeMove);
+        AudioManager.Instance.playSoundEffect(AudioManager.Instance.slimeMove);
     }
 }

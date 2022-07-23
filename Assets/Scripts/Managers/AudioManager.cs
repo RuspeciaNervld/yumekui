@@ -6,33 +6,26 @@ using UnityEngine;
 public class AudioManager : ISingleton<AudioManager>
 {
     [Header("=== objects ===")]
-    public AudioSource oneShot;
+    public AudioSource soundEffect;
     public AudioSource bgm;
+    public AudioSource dub;
 
     [Header("=== audios ===")]
     public AudioClip slimeMove;
     public AudioClip angelFallDown;
 
     public override void Awake() {
-        oneShot = gameObject.AddComponent<AudioSource>();
+        soundEffect = gameObject.AddComponent<AudioSource>();
         bgm = gameObject.AddComponent<AudioSource>();
+        dub = gameObject.AddComponent<AudioSource>();
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void init() {
+        //todo 根据玩家配置初始化
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void playOnce(AudioClip clip) {
-        oneShot.PlayOneShot(clip);
+    public void playSoundEffect(AudioClip clip) {
+        soundEffect.PlayOneShot(clip);
     }
 
     public void playBgm(AudioClip clip) {
@@ -41,17 +34,36 @@ public class AudioManager : ISingleton<AudioManager>
         }
     }
 
+    public void playDub(AudioClip clip) {
+        if (dub.isPlaying) {
+            dub.Stop();
+        }
+        dub.PlayOneShot(clip);
+    }
+
     public void setVolume(AudioSource _audioSource,float _value) {
         _audioSource.volume = _value;
     }
 
-    public void setEffectVolume(float value) {
-        oneShot.volume = value;
+    public void setSoundEffectVolume(float value) {
+        soundEffect.volume = value;
     }
 
     public void setBgmVolume(float value) {
-        oneShot.volume = value;
+        bgm.volume = value;
     }
 
-    
+    public void setDubVolume(float value) {
+        dub.volume = value;
+    }
+
+    public void toggleSoundEffectMute() {
+        soundEffect.mute = !soundEffect.mute;
+    }
+    public void toggleBgmMute() {
+        bgm.mute = !bgm.mute;
+    }
+    public void toggleDubMute() {
+        dub.mute = !dub.mute;
+    }
 }

@@ -16,14 +16,15 @@ public class TestAudio : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.K)) {
-            AudioManager.Instance.setVolume(AudioManager.Instance.oneShot,0.1f);
+            AudioManager.Instance.setVolume(AudioManager.Instance.soundEffect,0.1f);
             AudioManager.Instance.setVolume(AudioManager.Instance.bgm,0.2f);
         }
         if (Input.GetKeyDown(KeyCode.J)) {
-            AudioManager.Instance.playOnce(clip);
+            AudioManager.Instance.playSoundEffect(clip);
         }
         if (Input.GetKeyDown(KeyCode.L)) {
-            AudioManager.Instance.playBgm(bgm);
+            AudioClip clip = ResourceManager.Instance.GetAssetCache<AudioClip>("Media/BGM/Angel fall Down.wav");
+            AudioManager.Instance.playBgm(clip);
         }
     }
 }

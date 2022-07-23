@@ -17,8 +17,8 @@ public class DialogueManager : MonoBehaviour {
         public string speaker;
         public string img;
         public string content;
-
-        public CsvLine(int blockId, char sign, int id, int to, string speaker, string img, string content) {
+        public string dub;
+        public CsvLine(int blockId, char sign, int id, int to, string speaker, string img, string content, string dub) {
             this.blockId = blockId;
             this.sign = sign;
             this.id = id;
@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour {
             this.speaker = speaker;
             this.img = img;
             this.content = content;
+            this.dub = dub;
         }
     }
     [TextArea(1, 3)]
@@ -123,6 +124,10 @@ public class DialogueManager : MonoBehaviour {
                     speakerImg.sprite = ResourceManager.Instance.GetAssetCache<Sprite>("Arts/" + csvLines[currentIdx].img);
                     speakerImg.color = new Color(255, 255, 255, 255);
                 }
+                if (csvLines[currentIdx].dub != "") {
+                    AudioClip clip = ResourceManager.Instance.GetAssetCache<AudioClip>("Media/Dub/" + csvLines[currentIdx].dub);
+                    AudioManager.Instance.playDub(clip);
+                }
                 currentIdx = csvLines[currentIdx].to; //! 进入下一句
                 break;
             case '#':
@@ -143,7 +148,7 @@ public class DialogueManager : MonoBehaviour {
     /// <param name="speaker">说话者名称</param>
     /// <param name="content">说话的内容</param>
     /// <param name="imgPath">立绘路径，为""（空）时不显示立绘</param>
-    public void ShowOneLine(string speaker,string content,string imgPath) {
+    public void ShowOneLine(string speaker,string content,string imgPath, string dubPath) {
         StartCoroutine(ScrollingText2());
         nameText.text = speaker;
         if (imgPath == "") {
@@ -152,6 +157,10 @@ public class DialogueManager : MonoBehaviour {
         } else {
             speakerImg.sprite = ResourceManager.Instance.GetAssetCache<Sprite>("Arts/" + imgPath);
             speakerImg.color = new Color(255, 255, 255, 255);
+        }
+        if (csvLines[currentIdx].dub != "") {
+            AudioClip clip = ResourceManager.Instance.GetAssetCache<AudioClip>("Media/Dub/" + dubPath);
+            AudioManager.Instance.playDub(clip);
         }
     }
 
@@ -201,7 +210,7 @@ public class DialogueManager : MonoBehaviour {
         
         for (int i =1;i<all.Length-1;i++) {
             string[] cell = all[i].Split(',');
-            CsvLine csv = new CsvLine(int.Parse(cell[0]), cell[1][0], int.Parse(cell[2]), int.Parse(cell[3]), cell[4], cell[5], cell[6]);
+            CsvLine csv = new CsvLine(int.Parse(cell[0]), cell[1][0], int.Parse(cell[2]), int.Parse(cell[3]), cell[4], cell[5], cell[6], cell[7]);
             csvLines.Add(csv);
         }
     }

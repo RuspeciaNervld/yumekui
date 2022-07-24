@@ -151,7 +151,6 @@ public class Player : ICreature {
             //todo ²¥·Å¹¥»÷¶¯»­
             weapon.NormalAttackAnim();
         }
-        
     }
 
     public override void beHurtAction() {

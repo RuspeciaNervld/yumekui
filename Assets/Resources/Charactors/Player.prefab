@@ -93,6 +93,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalAttackHurtTime: 0.3
   normalAttackEndTime: 0.6
+  skillHurtTime: 0
+  skillEndTime: 0
   normalAttackPlus: 5
   normalAttackMult: 2
   computedAttack: 0
@@ -296,8 +298,6 @@ GameObject:
   - component: {fileID: 214128341213616582}
   - component: {fileID: 214128341213616583}
   - component: {fileID: 1482404355}
-  - component: {fileID: 1482404364}
-  - component: {fileID: 1482404365}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -313,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214128341213616605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -2.04, z: -0.505972}
+  m_LocalPosition: {x: -8, y: -2.04, z: -0.505972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 101468532}
@@ -501,6 +501,7 @@ MonoBehaviour:
   dash: 0
   dashTrigger: 0
   attack: 0
+  joy: 0
   axisX: X axis
   axisY: Y axis
   axis2X: 4th axis
@@ -577,6 +578,9 @@ MonoBehaviour:
   hp: 100
   accept: 1
   attack: 5
+  attackController: {fileID: 0}
+  beHurtController: {fileID: 0}
+  weapon: {fileID: 0}
   playerName: slime
   playerCoin: 0
   playerPoint: 0
@@ -584,27 +588,3 @@ MonoBehaviour:
   nearMult: 1
   farMult: 1
   power: 0
---- !u!114 &1482404364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214128341213616605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5f2845ec9220ce479f6d24698892316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1482404365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214128341213616605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f92d148a333e7b4eae3d893960d8882, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -25,7 +25,7 @@ public class TestMgr : MonoBehaviour
     }
     public void InitGame() {
         //todo 加载场景内独立脚本并初始化
-        gameObject.AddComponent<DialogueManager>().init("Save&Load/TestDialogues.csv",0.1f);
+        //gameObject.AddComponent<DialogueManager>().init("Save&Load/TestDialogues.csv",0.1f);
         //end
 
         //todo 放我们的NPC;

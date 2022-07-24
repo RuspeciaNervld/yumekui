@@ -5,6 +5,8 @@ public abstract class IWeapon : MonoBehaviour {
     [Header("=== property settings ===")]
     public float normalAttackHurtTime;
     public float normalAttackEndTime;
+    public float skillHurtTime;
+    public float skillEndTime;
     public float normalAttackPlus;
     public float normalAttackMult;
 

@@ -5,13 +5,13 @@ using DG.Tweening;
 
 public class w_nose : IWeapon {
     public override void NormalAttackAnim() {
-        transform.DOMoveX(-7.24f,1f);
-        throw new System.NotImplementedException();
+        transform.DOLocalMoveX(-1.6f, 0.5f).OnComplete(() => {
+            transform.DOLocalMoveX(1.0295f, 0.5f);
+        });
     }
 
     public override void NormalAttackEnd() {
-        transform.DOMoveX(-4.06f,1f);
-        throw new System.NotImplementedException();
+        transform.DOComplete();
     }
 
     public override void NormalAttackHurt() {
@@ -21,15 +21,23 @@ public class w_nose : IWeapon {
     }
 
     public override void SkillAttackAnim() {
-        throw new System.NotImplementedException();
+        Debug.Log("dotween");
+        transform.DOLocalMove(new Vector3(-1.08f, 1.18f, 0), 0.5f, false).OnComplete(() => {
+            transform.DOLocalRotate(new Vector3(0, 0, -90), 0.5f).OnComplete(() => {
+                transform.DOLocalMove(new Vector3(1.0295f, -0.01f, 0), 0.5f, false).SetDelay(1f).OnComplete(() => {
+                    transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+                });
+            });
+        });
     }
 
     public override void SkillAttackEnd() {
-        throw new System.NotImplementedException();
+        transform.DOComplete();
     }
 
     public override void SkillAttackHurt() {
-        throw new System.NotImplementedException();
+        float computedAttack = user.attack * normalAttackMult;
+        this.computedAttack = computedAttack;
     }
 
     public override void SwordAgainstAnim() {

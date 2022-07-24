@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 975533702}
   - component: {fileID: 975533701}
   - component: {fileID: 975533700}
+  - component: {fileID: 975533703}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -331,3 +332,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &975533703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975533699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1371f9e92d39ec84bba372cf050897e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameter:
+    health: 0
+    moveSpeed: 0
+    chaseSpeed: 0
+    idleTime: 0
+    patrolPoints: []
+    chasePoints: []
+    animator: {fileID: 0}
+    target: {fileID: 0}
+    targetLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    attackCenter: {fileID: 0}
+    attackRadius: 0
+  nose: {fileID: 0}
+  creature: {fileID: 0}

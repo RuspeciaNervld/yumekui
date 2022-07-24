@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class JoystickInput : IUserInput {
-
+    public bool joy;
     [Header("=== key settings ===")]
     public string axisX = "X axis";
     public string axisY = "Y axis";
@@ -22,6 +22,19 @@ public class JoystickInput : IUserInput {
     }
 
     private void Update() {
+        if(Input.GetAxis(axisX) !=0|| Input.GetAxis(axisY)!=0 ||
+            Input.GetAxis(axis2X)!=0 || Input.GetAxis(axis2Y)!=0 ||
+            Input.GetKey(btnA) || Input.GetKey(btnB) ||
+            Input.GetKey(btnX) || Input.GetKey(btnY) ||
+            Input.GetKey(LB) || Input.GetKey(RB) ||
+            Input.GetAxis(LRT)!=0 || Input.GetKey(back) ||
+            Input.GetKey(home)) {
+            joy = true;
+        } else {
+            joy = false;
+            return;
+        }
+
         // 获取跳跃信号，且是连续的
         jump = Input.GetKey(btnA);
         jumpKeyDown = Input.GetKeyDown(btnA);

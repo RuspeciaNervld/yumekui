@@ -14,15 +14,34 @@ public class ICreature : MonoBehaviour
     public float attack;
 
     [Header("=== controllers ===")]
-    protected AttackController attackController = null;//! 有可能不会被赋值的要事先设为null
-    protected BeHurtController beHurtController = null;
-    protected IWeapon weapon = null;
+    public AttackController attackController = null;//! 有可能不会被赋值的要事先设为null
+    public BeHurtController beHurtController = null;
+    public IWeapon weapon = null;
 
     public virtual void beHurtAction() {
         Debug.Log("受伤动画");
         //! 变红动画
     }
+    public virtual bool NormalAttack() {
+        if (this.attackController.doAttack(weapon.normalAttackHurtTime, weapon.normalAttackEndTime, weapon.NormalAttackHurt, weapon.NormalAttackEnd)) {
+            //todo 播放攻击动画
+            weapon.NormalAttackAnim();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public virtual bool Skill() {
+        if (this.attackController.doAttack(weapon.skillHurtTime, weapon.skillEndTime, weapon.SkillAttackHurt, weapon.SkillAttackEnd)) {
+            //todo 播放攻击动画
+            Debug.Log("skill");
+            weapon.SkillAttackAnim();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /// <summary>
     /// 可以创建可攻击，不可攻击，可被攻击，不可被攻击的生物，默认受伤后不无敌且不硬直
@@ -48,7 +67,7 @@ public class ICreature : MonoBehaviour
             beHurtController.init(0, 0);
         }
     }
-
+    
     /// <summary>
     /// 只能创建可被攻击的生物
     /// </summary>

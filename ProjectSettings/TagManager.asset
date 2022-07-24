@@ -42,8 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: component
+  - name: component_0
     uniqueID: 379308689
+    locked: 0
+  - name: component_1
+    uniqueID: 8492747
     locked: 0
   - name: UI
     uniqueID: 1394909429

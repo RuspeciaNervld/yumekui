@@ -9,6 +9,7 @@ public class KeyboardInput : IUserInput {
     public string keyRight = "d";
     public string keyDash = "left shift";
     public string keyJump = "space";
+    public string keyAttack = "j";
 
     //public string keyJRight = "right";
     //public string keyJLeft = "left";
@@ -41,7 +42,13 @@ public class KeyboardInput : IUserInput {
         // 冲刺信号
         if (Input.GetKeyDown(keyDash)) {
             dash = true;
+        } else {
+            dash = false;
         }
+
+        
+        attack = Input.GetKeyDown(keyAttack);
+        
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);

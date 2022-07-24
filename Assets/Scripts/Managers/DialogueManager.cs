@@ -69,18 +69,26 @@ public class DialogueManager : MonoBehaviour {
             //        isScrolling = false;
             //    }
             //}
-            if ((Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)) /*&& currentContent == csvLines[preIdx].content*/) {
-                if (isScrolling == false) {
-                    upDateNextLine();
-                    currentTask = StartCoroutine(ScrollingText2());
-                    if (currentIdx==0) { //! 这个对话块完成了
-                        dialogueBox.SetActive(false);
-                    }
-                } else {
-                    Debug.Log("强制完成");
+            if ((Input.GetMouseButtonUp(0) /*|| Input.GetKeyDown(KeyCode.Space)*/) /*&& currentContent == csvLines[preIdx].content*/) {
+                if (currentIdx == -1) {
                     StopCoroutine(currentTask);
-                    isScrolling = false;
                     dialogueText.text = currentContent;
+                    currentIdx--;
+                }else if(currentIdx == -2) {
+                    dialogueBox.SetActive(false);
+                } else {
+                    if (isScrolling == false) {
+                        upDateNextLine();
+                        currentTask = StartCoroutine(ScrollingText2());
+                        if (currentIdx == 0) { //! 这个对话块完成了
+                            currentIdx--;
+                        }
+                    } else {
+                        Debug.Log("强制完成");
+                        StopCoroutine(currentTask);
+                        isScrolling = false;
+                        dialogueText.text = currentContent;
+                    }
                 }
             }
         }
@@ -113,6 +121,9 @@ public class DialogueManager : MonoBehaviour {
         dialogueBox.SetActive(true);
     }
     private void upDateNextLine() {
+        if (currentIdx < 0 ) {
+            return;
+        }
         switch (csvLines[currentIdx].sign) {
             case '@':
                 currentContent = csvLines[currentIdx].content;
@@ -131,12 +142,15 @@ public class DialogueManager : MonoBehaviour {
                 currentIdx = csvLines[currentIdx].to; //! 进入下一句
                 break;
             case '#':
+                currentContent = "";
                 while (csvLines[currentIdx].sign == '#') {
                     //todo 加载出一些选项和功能
                     currentIdx++;
                 }
+                
                 //todo 之后应该在选项里给出下一句话的指令这里就直接给了
                 //todo 假设我们选了最后一个选项
+                currentIdx--;
                 currentIdx = csvLines[currentIdx].to;
                 break;
         }
@@ -215,8 +229,9 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
-    /// <param name="path">对话csv文件的路径，如："SL/TestDialogues.csv"</param>
-    public void init(string path) {
+    /// <param name="path">对话csv文件的路径，如："Save&Load/TestDialogues.csv"</param>
+    public void init(string path,float charDuration) {
+        textInterval = charDuration;
         dialogueBox =GameObject.Find("Canvas/TestUI/DialoguePanel");
         dialogueText = dialogueBox.transform.GetChild(0).GetComponent<Text>();
         nameText = dialogueBox.transform.GetChild(1).GetComponent<Text>();

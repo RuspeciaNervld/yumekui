@@ -16,4 +16,5 @@ public abstract class IUserInput : MonoBehaviour {
     public bool isOnWall;
     public bool dash;
     public bool dashTrigger; // 动画专用信号
+    public bool attack;
 }

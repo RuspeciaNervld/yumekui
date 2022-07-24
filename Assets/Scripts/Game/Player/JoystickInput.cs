@@ -30,9 +30,13 @@ public class JoystickInput : IUserInput {
         xDir = (int)Input.GetAxis(axisX);
 
         // 冲刺信号
-        if ((int)Input.GetAxis(LRT) == -1) {
+        if ((int)Input.GetAxis(LRT) == 1) {
             dash = true;
+        } else {
+            dash = false;
         }
+
+        attack = Input.GetKeyDown(btnX);
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);

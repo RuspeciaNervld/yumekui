@@ -9,15 +9,21 @@ public class ICreature : MonoBehaviour
     public bool canBeHurt;
 
     [Header("=== figure settings ===")]
-    [SerializeField] protected float hp;
-    [SerializeField] protected float define;
-    [SerializeField] protected float attack;
+    public float hp;
+    public float accept;
+    public float attack;
 
     [Header("=== controllers ===")]
     protected AttackController attackController = null;//! 有可能不会被赋值的要事先设为null
     protected BeHurtController beHurtController = null;
+    protected IWeapon weapon = null;
 
-    
+    public virtual void beHurtAction() {
+        Debug.Log("受伤动画");
+        //! 变红动画
+    }
+
+
     /// <summary>
     /// 可以创建可攻击，不可攻击，可被攻击，不可被攻击的生物，默认受伤后不无敌且不硬直
     /// </summary>
@@ -26,19 +32,20 @@ public class ICreature : MonoBehaviour
     /// <param name="define">基础防御</param>
     /// <param name="canAttack">能攻击</param>
     /// <param name="canBeHurt">能受伤</param>
-    public virtual void init(float hp,float attack,float define,bool canAttack,bool canBeHurt) {
-        this.hp = hp;
-        this.attack = attack;
-        this.define = define;
+    public virtual void init(/*float hp,float attack,float define,*/bool canAttack,bool canBeHurt) {
+        //this.hp = hp;
+        //this.attack = attack;
+        //this.define = define;
         this.canAttack = canAttack;
         this.canBeHurt = canBeHurt;
         if (canAttack) {
             attackController = gameObject.AddComponent<AttackController>();
             attackController.init();
+            weapon = GetComponentInChildren<IWeapon>();
         }
         if (canBeHurt) {
             beHurtController = gameObject.AddComponent<BeHurtController>();
-            beHurtController.init(0,0);
+            beHurtController.init(0, 0);
         }
     }
 
@@ -51,19 +58,24 @@ public class ICreature : MonoBehaviour
     /// <param name="canAttack">能攻击</param>
     /// <param name="hurtColdTime">受伤后的无敌时间</param>
     /// <param name="hurtRecoverTime">受伤后的硬直时间</param>
-    public virtual void init(float hp, float attack, float define, bool canAttack, float hurtColdTime,float hurtRecoverTime) {
-        this.hp = hp;
-        this.attack = attack;
-        this.define = define;
+    public virtual void init(/*float hp, float attack, float define,*/ bool canAttack, float hurtColdTime,float hurtRecoverTime) {
+        //this.hp = hp;
+        //this.attack = attack;
+        //this.define = define;
         this.canAttack = canAttack;
         this.canBeHurt = true;
         if (canAttack) {
             attackController = gameObject.AddComponent<AttackController>();
             attackController.init();
+            weapon = GetComponentInChildren<IWeapon>();
         }
         if (canBeHurt) {
             beHurtController = gameObject.AddComponent<BeHurtController>();
             beHurtController.init(hurtColdTime, hurtRecoverTime);
         }
+    }
+
+    private void Start() {
+        init(canAttack, canBeHurt);
     }
 }

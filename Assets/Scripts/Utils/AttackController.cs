@@ -58,7 +58,7 @@ public class AttackController : MonoBehaviour
         if (startAction != null) {
             this.startAction();
             this.startAction = null;
-        } ;
+        }
 
         currentTime += Time.deltaTime;
 
@@ -68,6 +68,7 @@ public class AttackController : MonoBehaviour
                 this.hurtAction = null;
             }
         }
+
         if (currentTime >= this.endTime) {
             if (this.endAction != null) {
                 this.endAction();

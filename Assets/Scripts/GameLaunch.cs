@@ -17,6 +17,7 @@ public class GameLaunch : ISingleton<GameLaunch>
         this.gameObject.AddComponent<UIManager>();
         this.gameObject.AddComponent<AudioManager>();
         this.gameObject.AddComponent<InputListener>();
+        this.gameObject.AddComponent<SaveLoadManager>();
         //end
 
         //todo  进入游戏的逻辑入口

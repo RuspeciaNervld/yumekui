@@ -7,7 +7,7 @@ public class TestMgr : MonoBehaviour
 {
     public static TestMgr Instance = null; //! 只在一个场景中一直存在,故使用小的“单例模式”
     public GameObject player = null;
-    public List<GameObject> ememies = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
 
     private void Awake() {
         TestMgr.Instance = this;
@@ -21,14 +21,18 @@ public class TestMgr : MonoBehaviour
         // 九宫格的场景管理
         // end
 
-        return this.ememies;
+        return this.enemies;
     }
     public void InitGame() {
         //todo 加载场景内独立脚本并初始化
-        gameObject.AddComponent<DialogueManager>().init("SL/TestDialogues.csv");
+        gameObject.AddComponent<DialogueManager>().init("Save&Load/TestDialogues.csv",0.1f);
         //end
 
         //todo 放我们的NPC;
+        GameObject yumekuiPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/yumekui.prefab");
+        
+        enemies.Add(GameObject.Instantiate(yumekuiPrefab));
+        
         // end
 
         //todo 放我们的Player角色
@@ -37,7 +41,7 @@ public class TestMgr : MonoBehaviour
         //this.player.AddComponent<CharactorCtrl>().init(); //! 可以在这里挂脚本并初始化，可以传递参数，给出特定的数值
         this.player.name = "Player";
         //this.player.AddComponent<PlayerOpt>().init();
-        this.player.AddComponent<Player>().init(100, 10, 5,true,0,0);
+        //this.player.AddComponent<Player>().init(/*100, 10, 5,*/true,0,0);
         
         // end
 

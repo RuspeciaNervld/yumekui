@@ -8,10 +8,10 @@ public class PlayerController : MonoBehaviour {
     public LayerMask wall;
 
     public Collider2D c2d; // 自身的碰撞器
-
+    
     private Rigidbody2D rb;
-    private Animator anim;
     private IUserInput input;
+    private Player player;
 
     [Header("=== value settings ===")]
     public float speed;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     public float dashTime;
     public float wallForce;
     public float targetG;
-
+    public float rushForce;
     public float woodTime; //! 无法操控时间
 
     [Header("=== ability settings ===")]
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     public bool canDash;
     public bool canStayWall;
     public bool canControl;
+    public bool canRush;
 
     private float jumpTimeCounter;
     private float dashTimeCounter;
@@ -39,14 +40,14 @@ public class PlayerController : MonoBehaviour {
     private bool doubleJumped;
     private bool doubleJump;
     private bool holdingJump;
+    private bool rushed;
 
     private KeyboardInput keyInput;
     private JoystickInput joyInput;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-
+        player = GetComponent<Player>();
         keyInput = GetComponent<KeyboardInput>();
         joyInput = GetComponent<JoystickInput>();
 
@@ -94,6 +95,9 @@ public class PlayerController : MonoBehaviour {
                 isJumping = false;
             }
         }
+        if (input.attack) {
+            player.NormalAttack();
+        }
         
 
         //! 二段跳模块
@@ -124,22 +128,29 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        //! dash模块
+        //! 加速模块
         if (canDash) {
             dashColdTime -= Time.deltaTime;
             dashTimeCounter -= Time.deltaTime;
             if (input.dash) {
-                input.dash = false;
                 if (dashColdTime <= 0) { // 冷却结束，可以冲刺
+                    canControl = false;
+                    input.dash = false;
                     input.dashTrigger = true; // 给动画信号
                     dashTimeCounter = dashTime;
                     dashColdTime = dashCD;  // 冷却重置
                 }
             }
         }
+
+        
+
     }
 
     private void FixedUpdate() { // 物理相关的更新放在这里
-        rb.velocity = new Vector2(input.xDir * (dashTimeCounter < 0 ? speed : dashSpeed), rb.velocity.y);
+        if (dashTimeCounter < 0) {
+            canControl = true;
+        }
+        rb.velocity = new Vector2( (dashTimeCounter < 0 ? input.xDir * speed : transform.localScale.x * dashSpeed), rb.velocity.y);
     }
 }

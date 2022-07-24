@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class BeHurtController : MonoBehaviour
 {
+    private ICreature user;
+
     private float hurtColdTime;
     private float hurtColdTimeCounter;
     private float hurtRecoverTime;
@@ -29,18 +31,18 @@ public class BeHurtController : MonoBehaviour
     /// <param name="computedAttack">通过攻击方计算出的“计算伤害”</param>
     /// <param name="beHurtAction">受伤回调函数</param>
     /// <returns>受到实际伤害返回true，否则为false</returns>
-    public bool beHurt(float computedAttack,UnityAction beHurtAction) {
+    public bool beHurt(float computedAttack) {
         if (hurtColdTimeCounter>0) {
             return false;
         }
+        Debug.Log("受伤");
+        user.hp -= computedAttack * user.accept;
+        user.beHurtAction();
         hurtColdTimeCounter = hurtColdTime; // 受到伤害，受伤冷却重置
         hurtRecoverTimeCounter = hurtRecoverTime; // 受到伤害，开始硬直
         return true;
     }
 
-    public void beHurtOver() {
-
-    }
 
     public bool isRecovering() {
         return hurtRecoverTimeCounter > 0;
@@ -54,4 +56,5 @@ public class BeHurtController : MonoBehaviour
         hurtColdTimeCounter -= Time.deltaTime;
         hurtRecoverTimeCounter -= Time.deltaTime;
     }
+
 }

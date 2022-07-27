@@ -20,6 +20,8 @@ public class GameLaunch : ISingleton<GameLaunch>
         this.gameObject.AddComponent<SaveLoadManager>();
         //end
 
+
+
         //todo  进入游戏的逻辑入口
         this.gameObject.AddComponent<GameApp>();
         //end

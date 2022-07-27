@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ICreature : MonoBehaviour
 {
@@ -18,9 +19,23 @@ public class ICreature : MonoBehaviour
     public BeHurtController beHurtController = null;
     public IWeapon weapon = null;
 
+    [Header("=== can be hurt ===")]
+    public float hurtColdTime;
+    public float hurtRecoverTime;
+
+    [Header("=== objects ===")]
+    public SpriteRenderer sr;
+
     public virtual void beHurtAction() {
-        Debug.Log("受伤动画");
         //! 变红动画
+        sr.DOComplete();
+        transform.DOComplete();
+        SpecialEManager.Instance.DoShake(0.05f, 0.15f);
+        SpecialEManager.Instance.DoBulletTime(0.05f, 0.25f);
+        sr.DOColor(new Color(1, 0, 0), 0.3f).OnComplete(() => {
+            transform.DOShakePosition(0.2f, 0.2f, 1);
+            sr.DOColor(new Color(1, 1, 1), 0f);
+        });
     }
     public virtual bool NormalAttack() {
         if (this.attackController.doAttack(weapon.normalAttackHurtTime, weapon.normalAttackEndTime, weapon.NormalAttackHurt, weapon.NormalAttackEnd)) {
@@ -32,10 +47,10 @@ public class ICreature : MonoBehaviour
         }
     }
 
+
     public virtual bool Skill() {
         if (this.attackController.doAttack(weapon.skillHurtTime, weapon.skillEndTime, weapon.SkillAttackHurt, weapon.SkillAttackEnd)) {
             //todo 播放攻击动画
-            Debug.Log("skill");
             weapon.SkillAttackAnim();
             return true;
         } else {
@@ -64,7 +79,7 @@ public class ICreature : MonoBehaviour
         }
         if (canBeHurt) {
             beHurtController = gameObject.AddComponent<BeHurtController>();
-            beHurtController.init(0, 0);
+            beHurtController.init(0, 0, this);
         }
     }
     
@@ -88,13 +103,21 @@ public class ICreature : MonoBehaviour
             attackController.init();
             weapon = GetComponentInChildren<IWeapon>();
         }
-        if (canBeHurt) {
-            beHurtController = gameObject.AddComponent<BeHurtController>();
-            beHurtController.init(hurtColdTime, hurtRecoverTime);
-        }
+
+        beHurtController = gameObject.AddComponent<BeHurtController>();
+        beHurtController.init(hurtColdTime, hurtRecoverTime,this);
+        
     }
 
     private void Start() {
-        init(canAttack, canBeHurt);
+        init(canAttack, hurtColdTime,hurtRecoverTime);
+        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
+    }
+
+    //! 这是一种有实体的受伤方式，另一种由对方直接调用函数
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (canBeHurt && collision.CompareTag("Weapon")) {
+            beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
+        }
     }
 }

@@ -276,7 +276,6 @@ GameObject:
   - component: {fileID: 975533702}
   - component: {fileID: 975533701}
   - component: {fileID: 975533700}
-  - component: {fileID: 975533703}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -332,31 +331,84 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975533703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!1 &1556373388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1620168152442295722, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+  m_PrefabInstance: {fileID: 2042792909}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975533699}
+--- !u!114 &1558749652 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7733722171715372179, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+  m_PrefabInstance: {fileID: 2042792909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1371f9e92d39ec84bba372cf050897e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameter:
-    health: 0
-    moveSpeed: 0
-    chaseSpeed: 0
-    idleTime: 0
-    patrolPoints: []
-    chasePoints: []
-    animator: {fileID: 0}
-    target: {fileID: 0}
-    targetLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    attackCenter: {fileID: 0}
-    attackRadius: 0
-  nose: {fileID: 0}
-  creature: {fileID: 0}
+--- !u!1001 &2042792909
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434503292429291776, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468473095821525013, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1556373388}
+    - target: {fileID: 2468473095821525013, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 1558749652}
+    - target: {fileID: 5656027019025593406, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_Name
+      value: SepcialEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e880826f75e9c844e80dc788cb38c995, type: 3}

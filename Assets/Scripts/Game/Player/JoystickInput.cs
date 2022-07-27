@@ -21,13 +21,14 @@ public class JoystickInput : IUserInput {
     private void Start() {
     }
 
-    private void Update() {
-        if(Input.GetAxis(axisX) !=0|| Input.GetAxis(axisY)!=0 ||
-            Input.GetAxis(axis2X)!=0 || Input.GetAxis(axis2Y)!=0 ||
+    public override void Update() {
+        base.Update();
+        if (Input.GetAxis(axisX) != 0 || Input.GetAxis(axisY) != 0 ||
+            Input.GetAxis(axis2X) != 0 || Input.GetAxis(axis2Y) != 0 ||
             Input.GetKey(btnA) || Input.GetKey(btnB) ||
             Input.GetKey(btnX) || Input.GetKey(btnY) ||
             Input.GetKey(LB) || Input.GetKey(RB) ||
-            Input.GetAxis(LRT)!=0 || Input.GetKey(back) ||
+            Input.GetAxis(LRT) != 0 || Input.GetKey(back) ||
             Input.GetKey(home)) {
             joy = true;
         } else {
@@ -50,10 +51,5 @@ public class JoystickInput : IUserInput {
         }
 
         attack = Input.GetKeyDown(btnX);
-
-        // 着地信号
-        isGrounded = c2d.IsTouchingLayers(ground);
-        // 挂壁信号
-        isOnWall = c2d.IsTouchingLayers(wall);
     }
 }

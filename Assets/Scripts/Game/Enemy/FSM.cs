@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace State {
     public enum StateType {
-        Idle, Patrol, Chase, React, Attack, Skill
+        Idle, Patrol, Chase, React, Attack, Skill, Die
     }
 
     [System.Serializable]
@@ -13,6 +13,7 @@ namespace State {
         public float moveSpeed;
         public float chaseSpeed;
         public float idleTime;
+        public Rigidbody2D r2d;
         public Transform[] patrolPoints;
         public Transform[] chasePoints;
         public Animator animator;
@@ -20,6 +21,8 @@ namespace State {
         public LayerMask targetLayer;
         public Transform attackCenter;
         public float attackRadius;
+        public Transform seeCenter;
+        public float seeRadius;
     }
 
     public class FSM : MonoBehaviour {
@@ -43,6 +46,12 @@ namespace State {
 
         // Update is called once per frame
         void Update() {
+            
+            Debugger.Instance.logs[1].text = "BossÑªÁ¿£º" + creature.hp;
+            if(creature.hp <= 0) {
+                OnDie();
+                return;
+            }
             currentState.OnUpdate();
         }
 
@@ -62,18 +71,15 @@ namespace State {
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision) {
-            if (collision.CompareTag("Player")) {
-                parameter.target = collision.transform;
-            }
-        }
-
-        
-
         private void OnDrawGizmos() {
             Gizmos.DrawWireSphere(parameter.attackCenter.position, parameter.attackRadius);
+            Gizmos.DrawWireSphere(parameter.seeCenter.position, parameter.seeRadius);
         }
 
+
+        private void OnDie() {
+            Destroy(gameObject);
+        }
     }
 
 }

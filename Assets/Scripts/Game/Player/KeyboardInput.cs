@@ -7,8 +7,11 @@ public class KeyboardInput : IUserInput {
     public string keyDown = "s";
     public string keyLeft = "a";
     public string keyRight = "d";
-    public string keyDash = "left shift";
-    public string keyJump = "space";
+    public string keyDash2 = "left shift";
+    public string keyDash = "l";
+    public string keyJump = "k";
+    public string keyJump2 = "space";
+
     public string keyAttack = "j";
 
     //public string keyJRight = "right";
@@ -25,10 +28,11 @@ public class KeyboardInput : IUserInput {
     private void Start() {
     }
 
-    private void Update() {
+    public override void Update() {
+        base.Update();
         // 获取跳跃信号，且是连续的
-        jump = Input.GetKey(keyJump);  //! GetKey是对应实际键值，GetButton是虚拟键值
-        jumpKeyDown = Input.GetKeyDown(keyJump);
+        jump = Input.GetKey(keyJump) || Input.GetKey(keyJump2);  //! GetKey是对应实际键值，GetButton是虚拟键值
+        jumpKeyDown = Input.GetKeyDown(keyJump) || Input.GetKeyDown(keyJump2);
 
         // 获取水平方向移动信号
         if (Input.GetKey(keyRight)) {
@@ -40,15 +44,15 @@ public class KeyboardInput : IUserInput {
         }
 
         // 冲刺信号
-        if (Input.GetKeyDown(keyDash)) {
+        if (Input.GetKeyDown(keyDash) || Input.GetKeyDown(keyDash2)) {
             dash = true;
         } else {
             dash = false;
         }
 
-        
+
         attack = Input.GetKeyDown(keyAttack);
-        
+
 
         // 着地信号
         isGrounded = c2d.IsTouchingLayers(ground);

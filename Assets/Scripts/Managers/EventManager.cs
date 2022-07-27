@@ -73,4 +73,20 @@ public class EventManager : ISingleton<EventManager> {
 
         this.dic[event_name](/*event_name, udata*/);
     }
+
+    IEnumerator delayAction(UnityAction action,float delayTime) {
+        float time = 0;
+        while (true) {
+            time += Time.deltaTime;
+            if(time> delayTime) {
+                action();
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    public void DoDelayAction(UnityAction action,float delayTime) {
+        StartCoroutine( delayAction(action, delayTime) );
+    }
 }

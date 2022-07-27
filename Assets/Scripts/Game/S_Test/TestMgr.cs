@@ -24,6 +24,10 @@ public class TestMgr : MonoBehaviour
         return this.enemies;
     }
     public void InitGame() {
+        //todo 播放bgm
+        AudioManager.Instance.playBgm("Angel fall down.wav");
+        AudioManager.Instance.setBgmVolume(0.4f);
+        
         //todo 加载场景内独立脚本并初始化
         //gameObject.AddComponent<DialogueManager>().init("Save&Load/TestDialogues.csv",0.1f);
         //end
@@ -54,5 +58,24 @@ public class TestMgr : MonoBehaviour
         //e.AddComponent<CharactorCtrl>().init();
         //this.ememies.Add(e);
         // end
+    }
+
+    public void reLoadGame() {
+        foreach(GameObject obj in enemies) {
+            Destroy(obj);
+        }
+        Destroy(player);
+        //todo 放我们的NPC;
+        GameObject yumekuiPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/yumekui.prefab");
+
+        enemies.Add(GameObject.Instantiate(yumekuiPrefab));
+
+        // end
+
+        //todo 放我们的Player角色
+        GameObject charactorPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/Player.prefab");
+        this.player = GameObject.Instantiate(charactorPrefab);
+        //this.player.AddComponent<CharactorCtrl>().init(); //! 可以在这里挂脚本并初始化，可以传递参数，给出特定的数值
+        this.player.name = "Player";
     }
 }

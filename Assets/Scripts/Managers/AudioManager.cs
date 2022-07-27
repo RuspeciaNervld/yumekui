@@ -17,6 +17,7 @@ public class AudioManager : ISingleton<AudioManager>
     public override void Awake() {
         soundEffect = gameObject.AddComponent<AudioSource>();
         bgm = gameObject.AddComponent<AudioSource>();
+        bgm.loop = true;
         dub = gameObject.AddComponent<AudioSource>();
     }
 
@@ -29,15 +30,32 @@ public class AudioManager : ISingleton<AudioManager>
     }
 
     public void playBgm(AudioClip clip) {
-        if (!bgm.isPlaying) {
-            bgm.PlayOneShot(clip);
-        }
+        bgm.clip = clip;
+        bgm.Play();
     }
 
     public void playDub(AudioClip clip) {
         if (dub.isPlaying) {
             dub.Stop();
         }
+        dub.PlayOneShot(clip);
+    }
+    public void playSoundEffect(string clipName) {
+        AudioClip clip = ResourceManager.Instance.GetAssetCache<AudioClip>("Media/SoundEffect/"+clipName);
+        soundEffect.PlayOneShot(clip);
+    }
+
+    public void playBgm(string clipName) {
+        AudioClip clip = ResourceManager.Instance.GetAssetCache<AudioClip>("Media/BGM/" + clipName);
+        bgm.clip = clip;
+        bgm.Play();
+    }
+
+    public void playDub(string clipName) {
+        if (dub.isPlaying) {
+            dub.Stop();
+        }
+        AudioClip clip = ResourceManager.Instance.GetAssetCache<AudioClip>("Media/Dub/" + clipName);
         dub.PlayOneShot(clip);
     }
 

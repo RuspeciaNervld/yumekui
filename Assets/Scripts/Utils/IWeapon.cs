@@ -1,7 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(Collider2D))]
+//[RequireComponent(typeof(Animator), typeof(Collider2D))]
 public abstract class IWeapon : MonoBehaviour {
+
+    public bool touchWeapon;
+    public bool touchPlayer;
+
+    public SpriteRenderer sr;
+
     [Header("=== property settings ===")]
     public float normalAttackHurtTime;
     public float normalAttackEndTime;
@@ -37,4 +43,19 @@ public abstract class IWeapon : MonoBehaviour {
     public abstract void SwordAgainstAnim();
     public abstract void SwordAgainstEnd();
     public abstract void SwordAgainstHurt();
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Weapon")) {
+            touchWeapon = true;
+        }else if (collision.CompareTag("Player")) {
+            touchPlayer = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("Weapon")) {
+            touchWeapon = false;
+        }else if (collision.CompareTag("Player")) {
+            touchPlayer = false;
+        }
+    }
 }

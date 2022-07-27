@@ -7,19 +7,20 @@ public class w_stick : IWeapon {
     public override void NormalAttackAnim() {
         tr.enabled = true;
         c2d.enabled = true;
+        transform.DOComplete();
         transform.DOScale(new Vector3(1.5002F, 0.09955693F, 1), 0f);
-        Debug.Log("²¥·Å¹¥»÷¶¯»­");
-        transform.DORotate(new Vector3(0, 0, user.transform.localScale.x * 75), 0.2f, RotateMode.Fast).SetEase(Ease.InExpo);
-
+        transform.DORotate(new Vector3(0, 0, user.transform.localScale.x * 75), 0.1f, RotateMode.Fast).SetEase(Ease.InExpo).OnComplete(() => {
+            transform.DORotate(new Vector3(0, 0, 0), 0.05f, RotateMode.Fast).SetEase(Ease.InExpo).OnComplete(() => {
+                transform.DOScale(new Vector3(0, 0, 0), 0f);
+                tr.enabled = false;
+                c2d.enabled = false;
+            });
+        });
     }
 
     public override void NormalAttackEnd() {
-
-        transform.DORotate(new Vector3(0, 0, 0), 0.1f, RotateMode.Fast).SetEase(Ease.InExpo).OnComplete(() => {
-            transform.DOScale(new Vector3(0, 0, 0), 0f);
-            tr.enabled = false;
-            c2d.enabled = false;
-        });
+        //this.computedAttack = 0;
+        
     }
 
     public override void NormalAttackHurt() {

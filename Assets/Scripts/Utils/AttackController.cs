@@ -49,6 +49,10 @@ public class AttackController : MonoBehaviour
         return true;
     }
 
+    public void EndAttack() {
+        currentTime = 999999;
+    }
+
     // Update is called once per frame
     private void Update() {
         if (!this.isAttacking) {

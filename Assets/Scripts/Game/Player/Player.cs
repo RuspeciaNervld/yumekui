@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Player : ICreature {
     private const string PLAYER_DATA_KEY = "PlayerData";
@@ -12,11 +14,17 @@ public class Player : ICreature {
     public float farMult;
     public float power;
 
+    [Header("=== attack area ===")]
+    public Transform attackCenter;
+    public float attackRadius;
+    public LayerMask weaponLayer;
 
     private Animator anim;
-    private SpriteRenderer sr;
     private PlayerController moveController;
 
+    [Header("=== objects ===")]
+    public Rigidbody2D rb;
+    public WeaponIn wi;
 
     #region 数据存取
     //! 可序列化的内部类，用于存储数据
@@ -106,6 +114,7 @@ public class Player : ICreature {
 
     #endregion
 
+
     private void Awake() {
         anim = GetComponent<Animator>();
         moveController = GetComponent<PlayerController>();
@@ -114,7 +123,12 @@ public class Player : ICreature {
 
     // Update is called once per frame
     private void Update() {
-        if(canBeHurt && beHurtController.isRecovering()) {
+        Debugger.Instance.logs[0].text = "角色血量：" + hp;
+        if (hp <= 0) {
+            OnDie();
+        }
+        
+        if (canBeHurt && beHurtController.isRecovering()) {
             anim.enabled = false;
             moveController.enabled = false;
         } else {
@@ -145,24 +159,45 @@ public class Player : ICreature {
     //    }
     //}
 
-    public void NormalAttack() {
-        Debug.Log("平A");
+   new public void  NormalAttack() {
         if (this.attackController.doAttack(weapon.normalAttackHurtTime, weapon.normalAttackEndTime, weapon.NormalAttackHurt, weapon.NormalAttackEnd)) {
-            //todo 播放攻击动画
+            //todo 播放攻击动画音效
             weapon.NormalAttackAnim();
+            AudioManager.Instance.playSoundEffect($"knife{RusRandomer.randNum(1, 3)}.wav");
+
+            //if (Physics2D.OverlapCircle(attackCenter.position, attackRadius, weaponLayer)) {
+            //    canBeHurt = false;
+            //    Debug.Log("bh" + canBeHurt);
+            //    EventManager.Instance.DoDelayAction(() => {
+            //        canBeHurt = true;
+            //        Debug.Log("bh" + canBeHurt);
+            //    }, 1f);
+            //}
         }
     }
 
     public override void beHurtAction() {
-        base.beHurtAction();
+        sr.DOComplete();
+        sr.DOColor(new Color(255, 0, 0), 0.3f).OnComplete(() => {
+            sr.DOColor(new Color(255, 255, 255), 0f);
+        });
+        rb.velocity = new Vector2(-2*transform.localScale.x, 7);
     }
 
-    //! 这是一种有实体的受伤方式，另一种由对方直接调用函数
+    private void OnDie() {
+        TestMgr.Instance.reLoadGame();
+    }
+
+    //private void OnDrawGizmos() {
+    //    Gizmos.DrawWireSphere(attackCenter.position, attackRadius);
+    //}
+
+    //! 为了考虑武器和身体分离检测，这里覆写
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Weapon")) {
-            beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
-        }
+        //Debug.Log(collision.name);
+        //if (canBeHurt && collision.CompareTag("Weapon")) {
+        //    Debug.Log("in");
+        //    beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
+        //}
     }
-
-
 }

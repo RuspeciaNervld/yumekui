@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
     [Header("=== objects ===")]
     public LayerMask ground; //地面层
     public LayerMask wall;
+    public LayerMask rush;
 
     public Collider2D c2d; // 自身的碰撞器
     
@@ -22,15 +23,13 @@ public class PlayerController : MonoBehaviour {
     public float dashTime;
     public float wallForce;
     public float targetG;
-    public float rushForce;
-    public float woodTime; //! 无法操控时间
+
 
     [Header("=== ability settings ===")]
     public bool canDoubleJump;
     public bool canDash;
     public bool canStayWall;
     public bool canControl;
-    public bool canRush;
 
     private float jumpTimeCounter;
     private float dashTimeCounter;
@@ -41,10 +40,9 @@ public class PlayerController : MonoBehaviour {
     private bool doubleJump;
     private bool holdingJump;
 
-    private bool noJoy=true;
-    private bool belive = false;
     private KeyboardInput keyInput;
     private JoystickInput joyInput;
+    private float preG;
 
     private void Awake() {
         
@@ -57,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         keyInput = GetComponent<KeyboardInput>();
         joyInput = GetComponent<JoystickInput>();
         input = keyInput;
+        preG = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -82,9 +81,6 @@ public class PlayerController : MonoBehaviour {
         }
 
 
-
-
-
         if (input.isGrounded) {
             doubleJumped = false;
             holdingJump = true;
@@ -107,14 +103,13 @@ public class PlayerController : MonoBehaviour {
         if (input.attack) {
             player.NormalAttack();
         }
-        
 
+        if (!input.isGrounded && !input.jump && !doubleJumped) { // 空中松开跳跃
+            doubleJump = true;
+            holdingJump = false;
+        }
         //! 二段跳模块
         if (canDoubleJump) {
-            if (!input.isGrounded && !input.jump && !doubleJumped) { // 空中松开跳跃
-                doubleJump = true;
-                holdingJump = false;
-            }
             if (input.jump && !input.isGrounded && doubleJump) { // 空中第一次再次按下跳跃
                 rb.velocity = Vector2.up * jumpForce;
                 doubleJump = false;
@@ -133,7 +128,7 @@ public class PlayerController : MonoBehaviour {
                     rb.velocity = new Vector2(0, jumpForce);
                 }
             } else {
-                rb.gravityScale = 1f;
+                rb.gravityScale = preG ;
             }
         }
 
@@ -144,7 +139,9 @@ public class PlayerController : MonoBehaviour {
             if (input.dash) {
                 if (dashColdTime <= 0) { // 冷却结束，可以冲刺
                     canControl = false;
+                    player.canBeHurt = false; //! 由playercontroller来控制是否可被伤害
                     input.dash = false;
+                    c2d.enabled = false;
                     input.dashTrigger = true; // 给动画信号
                     dashTimeCounter = dashTime;
                     dashColdTime = dashCD;  // 冷却重置
@@ -159,7 +156,11 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate() { // 物理相关的更新放在这里
         if (dashTimeCounter < 0) {
             canControl = true;
+            player.canBeHurt = true;
+            c2d.enabled = true;
         }
         rb.velocity = new Vector2( (dashTimeCounter < 0 ? input.xDir * speed : transform.localScale.x * dashSpeed), rb.velocity.y);
     }
+
+    
 }

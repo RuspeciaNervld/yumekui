@@ -62,6 +62,6 @@ public class AnimatorController : MonoBehaviour {
     }
 
     public void move() {
-        AudioManager.Instance.playDub(AudioManager.Instance.slimeMove);
+        //AudioManager.Instance.playSoundEffect("slime.wav");
     }
 }

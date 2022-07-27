@@ -17,4 +17,11 @@ public abstract class IUserInput : MonoBehaviour {
     public bool dash;
     public bool dashTrigger; // 动画专用信号
     public bool attack;
+
+    public virtual void Update() {
+        // 着地信号
+        isGrounded = c2d.IsTouchingLayers(ground);
+        // 挂壁信号
+        isOnWall = c2d.IsTouchingLayers(wall);
+    }
 }

@@ -199,6 +199,7 @@ namespace State {
                 
                 if (manager.creature.weapon.touchWeapon) {
                     //todo 被弹反
+                    Debug.Log("技能弹反");
                     SpecialEManager.Instance.DoBulletTime(0.12f, 0.25f);
                     manager.creature.attackController.EndAttack();
                     parameter.r2d.velocity = new Vector2(parameter.chaseSpeed * manager.transform.localScale.x, 5);

@@ -15,6 +15,8 @@ public abstract class IWeapon : MonoBehaviour {
     public float skillEndTime;
     public float normalAttackPlus;
     public float normalAttackMult;
+    public float skillPlus;
+    public float skillMult;
 
     public float computedAttack;
 

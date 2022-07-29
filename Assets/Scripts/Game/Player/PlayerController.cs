@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask wall;
     public LayerMask rush;
 
+    public GameObject dashShadow;
     public Collider2D c2d; // 自身的碰撞器
     
     private Rigidbody2D rb;
@@ -103,6 +104,9 @@ public class PlayerController : MonoBehaviour {
         if (input.attack) {
             player.NormalAttack();
         }
+        if (input.skill) {
+            player.Skill();
+        }
 
         if (!input.isGrounded && !input.jump && !doubleJumped) { // 空中松开跳跃
             doubleJump = true;
@@ -138,6 +142,8 @@ public class PlayerController : MonoBehaviour {
             dashTimeCounter -= Time.deltaTime;
             if (input.dash) {
                 if (dashColdTime <= 0) { // 冷却结束，可以冲刺
+                    dashShadow.transform.localScale = transform.localScale;
+                    dashShadow.SetActive(true);
                     canControl = false;
                     player.canBeHurt = false; //! 由playercontroller来控制是否可被伤害
                     input.dash = false;
@@ -158,6 +164,7 @@ public class PlayerController : MonoBehaviour {
             canControl = true;
             player.canBeHurt = true;
             c2d.enabled = true;
+            dashShadow.SetActive(false);
         }
         rb.velocity = new Vector2( (dashTimeCounter < 0 ? input.xDir * speed : transform.localScale.x * dashSpeed), rb.velocity.y);
     }

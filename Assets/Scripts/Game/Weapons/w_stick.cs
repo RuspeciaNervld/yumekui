@@ -24,28 +24,48 @@ public class w_stick : IWeapon {
     }
 
     public override void NormalAttackHurt() {
-        float computedAttack = user.attack + normalAttackPlus;
+        float computedAttack;
+        if (user as Player) {
+            computedAttack = user.attack * ((Player)user).farMult + normalAttackPlus;
+        } else {
+            computedAttack = user.attack  + normalAttackPlus;
+        }
 
         this.computedAttack = computedAttack;
     }
 
     public override void SkillAttackAnim() {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void SkillAttackEnd() {
-        throw new System.NotImplementedException();
     }
 
     public override void SkillAttackHurt() {
-        //! 用了这个强转就只能作为主角武器了
-        float computedAttack = user.attack*((Player)user).nearMult * normalAttackMult;
+        float computedAttack;
+        if (user as Player) {//! 用了这个强转就只能作为主角武器了
+            computedAttack = user.attack * ((Player)user).farMult * normalAttackMult;
+        } else {
+            computedAttack = user.attack  * normalAttackMult;
+        }
+        
 
         //todo 一种情况：抓到一堆人全部欧拉一遍(调用beHurt)
         
 
         //todo 另一种：让别人自己通过碰撞器检测是否收到攻击，只呈递数值
         this.computedAttack = computedAttack;
+
+        GameObject fireBall = ResourceManager.Instance.GetAssetCache<GameObject>("Weapons/FireBall.prefab");
+
+        fireBall.transform.position = user.transform.position;
+        IBullet bullet = fireBall.GetComponent<IBullet>();
+        
+        int rand = RusRandomer.randNum(3, 7);
+        for (int i = 0; i < rand; i++) {
+            bullet.Init(computedAttack, user.transform.position);
+            GameObject.Instantiate(fireBall);
+        }
     }
 
     public override void SwordAgainstAnim() {

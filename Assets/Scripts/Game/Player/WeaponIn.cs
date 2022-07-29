@@ -10,7 +10,9 @@ public class WeaponIn : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Weapon")) {
             //weaponInBody = true;
-            creature.beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
+            if (collision.gameObject.GetComponent<IWeapon>()) {
+                creature.beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
+            }
         }
     }
 

@@ -36,6 +36,7 @@ public class w_nose : IWeapon {
     }
 
     public override void SkillAttackEnd() {
+        c2d.enabled = false;
         this.computedAttack = 0;
         transform.DOComplete();
         //transform.localPosition = new Vector3(-1.25f, -0.01f, 0);
@@ -48,7 +49,8 @@ public class w_nose : IWeapon {
     }
 
     public override void SkillAttackHurt() {
-        float computedAttack = user.attack * normalAttackMult;
+        c2d.enabled = true;
+        float computedAttack = user.attack * skillMult;
         this.computedAttack = computedAttack;
         user.canAttack = false;
     }

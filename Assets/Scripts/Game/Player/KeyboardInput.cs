@@ -13,6 +13,7 @@ public class KeyboardInput : IUserInput {
     public string keyJump2 = "space";
 
     public string keyAttack = "j";
+    public string keySkill = "i";
 
     //public string keyJRight = "right";
     //public string keyJLeft = "left";
@@ -52,7 +53,7 @@ public class KeyboardInput : IUserInput {
 
 
         attack = Input.GetKeyDown(keyAttack);
-
+        skill = Input.GetKeyDown(keySkill);
 
         // ×ÅµØÐÅºÅ
         isGrounded = c2d.IsTouchingLayers(ground);

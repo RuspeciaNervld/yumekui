@@ -16,7 +16,7 @@ public class JoystickInput : IUserInput {
     public string LRT = "3rd axis"; // ÓÒÕý×ó¸º
     public string back = "joystick button 6";
     public string home = "joystick button 7";
-
+    
     // Start is called before the first frame update
     private void Start() {
     }
@@ -51,5 +51,6 @@ public class JoystickInput : IUserInput {
         }
 
         attack = Input.GetKeyDown(btnX);
+        skill = Input.GetKeyDown(btnY);
     }
 }

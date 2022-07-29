@@ -181,7 +181,7 @@ public class Player : ICreature {
         sr.DOColor(new Color(255, 0, 0), 0.3f).OnComplete(() => {
             sr.DOColor(new Color(255, 255, 255), 0f);
         });
-        rb.velocity = new Vector2(-2*transform.localScale.x, 7);
+        rb.velocity = new Vector2(-4*transform.localScale.x, 12);
     }
 
     private void OnDie() {

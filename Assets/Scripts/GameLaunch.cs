@@ -12,12 +12,12 @@ public class GameLaunch : ISingleton<GameLaunch>
         base.Awake();
 
         //todo ≥ı ºªØ”Œœ∑øÚº‹
-        this.gameObject.AddComponent<ResourceManager>();
-        this.gameObject.AddComponent<EventManager>();
+        //this.gameObject.AddComponent<ResourceManager>();
+        //this.gameObject.AddComponent<EventManager>();
         this.gameObject.AddComponent<UIManager>();
         this.gameObject.AddComponent<AudioManager>();
         this.gameObject.AddComponent<InputListener>();
-        this.gameObject.AddComponent<SaveLoadManager>();
+        //this.gameObject.AddComponent<SaveLoadManager>();
         //end
 
 

@@ -117,7 +117,11 @@ public class ICreature : MonoBehaviour
     //! 这是一种有实体的受伤方式，另一种由对方直接调用函数
     private void OnTriggerEnter2D(Collider2D collision) {
         if (canBeHurt && collision.CompareTag("Weapon")) {
-            beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
+            if (collision.gameObject.GetComponent<IWeapon>() != null) {
+                beHurtController.beHurt(collision.gameObject.GetComponent<IWeapon>().computedAttack);
+            }else{
+                beHurtController.beHurt(collision.gameObject.GetComponent<IBullet>().attack);
+            }
         }
     }
 }

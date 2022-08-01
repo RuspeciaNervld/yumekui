@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
             c2d.enabled = true;
             dashShadow.SetActive(false);
         }
-        rb.velocity = new Vector2( (dashTimeCounter < 0 ? input.xDir * speed : transform.localScale.x * dashSpeed), rb.velocity.y);
+        rb.velocity = new Vector2( (dashTimeCounter < 0 ? input.xDir * speed * player.playerSpeedMult : transform.localScale.x * dashSpeed), rb.velocity.y);
     }
 
     

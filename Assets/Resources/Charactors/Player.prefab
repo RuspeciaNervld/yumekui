@@ -83,7 +83,6 @@ MonoBehaviour:
   skillPlus: 0
   skillMult: 0
   computedAttack: 0
-  bullet: {fileID: 0}
   tr: {fileID: 1691900669}
 --- !u!1 &1691900666
 GameObject:
@@ -554,7 +553,7 @@ MonoBehaviour:
   canAttack: 1
   canBeHurt: 1
   hp: 100
-  accept: 1
+  accept: 0
   attack: 10
   attackController: {fileID: 0}
   beHurtController: {fileID: 0}
@@ -565,10 +564,15 @@ MonoBehaviour:
   playerName: slime
   playerCoin: 0
   playerPoint: 0
-  playerSpeed: 3
-  nearMult: 1
-  farMult: 1
   power: 0
+  tendency: 0
+  playerSpeedMult: 0
+  nearMult: 0
+  farMult: 0
+  _playerSpeedMult: 1
+  _nearMult: 1
+  _farMult: 1
+  _accept: 1
   attackCenter: {fileID: 2350665649848158177}
   attackRadius: 0.9
   weaponLayer:

@@ -63,10 +63,14 @@ public class w_stick : IWeapon {
         
         int rand = RusRandomer.randNum(3, 7);
         for (int i = 0; i < rand; i++) {
-            bullet.Init(computedAttack, user.transform.position);
-            GameObject.Instantiate(fireBall);
+            EventManager.Instance.DoDelayAction(() => {
+                bullet.Init(computedAttack, user.transform.position);
+                GameObject.Instantiate(fireBall);
+                AudioManager.Instance.playSoundEffect("missile.wav");
+            }, i/10f);
         }
     }
+
 
     public override void SwordAgainstAnim() {
         throw new System.NotImplementedException();

@@ -9,10 +9,19 @@ public class Player : ICreature {
     public string playerName;
     public int playerCoin;
     public int playerPoint;
-    public float playerSpeed;
+    public float power;
+    public float tendency;
+    public float playerSpeedMult; //对外表现的值,一般为百分比呈现的值
     public float nearMult;
     public float farMult;
-    public float power;
+
+    [Header("=== Saved Data ===")]
+    public float _playerSpeedMult;//存储的值,不受tendency和装备影响，仅受玩家等级和永久提升物影响
+    public float _nearMult;
+    public float _farMult;
+    public float _accept;
+
+    private float time;
 
     [Header("=== attack area ===")]
     public Transform attackCenter;
@@ -38,9 +47,10 @@ public class Player : ICreature {
         public float playerHp;
         public float playerAccept;
         public float playerAttack;
-        public float playerSpeed;
-        public float nearMult;
-        public float farMult;
+        public float _playerSpeedMult;
+        public float _nearMult;
+        public float _farMult;
+        public float tendency;
         public float power;
     }
 
@@ -55,10 +65,11 @@ public class Player : ICreature {
         playerData.playerHp = hp;
         playerData.playerAccept = accept;
         playerData.playerAttack = attack;
-        playerData.playerSpeed = playerSpeed;
-        playerData.nearMult = nearMult;
-        playerData.farMult = farMult;
+        playerData._playerSpeedMult = _playerSpeedMult;
+        playerData._nearMult = _nearMult;
+        playerData._farMult = _farMult;
         playerData.power = power;
+        playerData.tendency = tendency;
 
         return playerData;
     }
@@ -72,10 +83,11 @@ public class Player : ICreature {
         accept = loadData.playerAccept;
         attack = loadData.playerAttack;
         transform.position = loadData.playerPosition;
-        playerSpeed = loadData.playerSpeed;
-        nearMult = loadData.nearMult;
-        farMult = loadData.farMult;
+        _playerSpeedMult = loadData._playerSpeedMult;
+        _nearMult = loadData._nearMult;
+        _farMult = loadData._farMult;
         power = loadData.power;
+        tendency = loadData.tendency;
     }
     public void SaveByPlayerPrefs() {
         SaveLoadManager.Instance.SaveByPlayerPrefs(PLAYER_DATA_KEY, GetPlayerData());
@@ -124,6 +136,13 @@ public class Player : ICreature {
     // Update is called once per frame
     private void Update() {
         Debugger.Instance.logs[0].text = "角色血量：" + hp;
+        Debugger.Instance.logs[3].text = "近伤倍率：" + nearMult;
+        Debugger.Instance.logs[4].text = "远伤倍率：" + farMult;
+        Debugger.Instance.logs[5].text = "移速倍率：" + playerSpeedMult;
+        Debugger.Instance.logs[6].text = "承伤倍率：" + accept;
+
+
+
         if (hp <= 0) {
             OnDie();
         }
@@ -135,6 +154,35 @@ public class Player : ICreature {
             anim.enabled = true;
             moveController.enabled = true;
         }
+
+        //todo 计算玩家的对外数值
+        time += Time.deltaTime;
+        int actualTendency = (int)Mathf.Floor(tendency);
+        if (actualTendency > 0) {
+            //todo 计算感性
+            farMult = _farMult + actualTendency * 0.04f;
+            nearMult = _nearMult - actualTendency * 0.02f;
+            accept = _accept + actualTendency * 0.03f;
+            if (time >= 5f) {
+                time = 0;
+                hp += actualTendency * 0.04f;
+                if (hp >= 100) {
+                    hp = 100;
+                }
+            }
+            playerSpeedMult = _playerSpeedMult;
+        } else if(actualTendency <= 0) {
+            actualTendency = -actualTendency;
+
+            //todo 计算理性
+            nearMult = _nearMult + actualTendency * 0.05f;
+            farMult = _farMult - actualTendency * 0.02f;
+            accept = _accept + actualTendency * 0.02f;
+            playerSpeedMult = _playerSpeedMult + actualTendency * 0.01f;
+
+            actualTendency = -actualTendency;
+        }
+
     }
 
     //private void onSkillHurt() {

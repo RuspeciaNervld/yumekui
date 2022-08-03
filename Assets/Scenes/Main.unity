@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &460432077 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7415615873522164989, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+  m_PrefabInstance: {fileID: 2042792909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &590248670
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,9 +342,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1556373388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1620168152442295722, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+--- !u!20 &1556373391 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1620168152442295721, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
   m_PrefabInstance: {fileID: 2042792909}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1558749652 stripped
@@ -347,6 +358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1643109962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 51193335585800287, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+  m_PrefabInstance: {fileID: 2042792909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2042792909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -401,14 +417,26 @@ PrefabInstance:
     - target: {fileID: 2468473095821525013, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
       propertyPath: camera
       value: 
-      objectReference: {fileID: 1556373388}
+      objectReference: {fileID: 1556373391}
+    - target: {fileID: 2468473095821525013, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1643109962}
     - target: {fileID: 2468473095821525013, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
       propertyPath: volume
       value: 
       objectReference: {fileID: 1558749652}
+    - target: {fileID: 2468473095821525013, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: textPrefab
+      value: 
+      objectReference: {fileID: 460432077}
     - target: {fileID: 5656027019025593406, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
       propertyPath: m_Name
       value: SepcialEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276790174317649821, guid: e880826f75e9c844e80dc788cb38c995, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e880826f75e9c844e80dc788cb38c995, type: 3}

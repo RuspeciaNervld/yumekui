@@ -1,13 +1,16 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using UnityEngine.UI;
 
 public class SpecialEManager : ISingleton<SpecialEManager>
 {
-    public GameObject camera;
+    public Camera camera;
     public Volume volume;
+    public Text textPrefab;
+    public GameObject canvas;
 
     private Vector3 cameraPos;
     // Start is called before the first frame update
@@ -73,5 +76,33 @@ public class SpecialEManager : ISingleton<SpecialEManager>
             yield return null;
         }
         Time.timeScale = 1;
+    }
+
+    public void showHurt(Vector3 position,float hurtNum) {
+        Vector2 pos = camera.WorldToScreenPoint(position);
+
+        Text myText = Instantiate<Text>(textPrefab,canvas.transform);
+        myText.text = hurtNum.ToString();
+        FlyUpAndDestroy(myText, pos);
+        
+    }
+
+    private static void FlyUpAndDestroy(Graphic graphic,Vector2 position) {
+        Color c = graphic.color;
+        c.a = 0;
+        graphic.color = c;
+        Sequence mySequence = DOTween.Sequence();
+        Tweener move1 = graphic.transform.DOMove(new Vector2(position.x + Random.Range(-10,10), position.y + 100) , 0f);
+        Tweener move2 = graphic.transform.DOMoveY(position.y + 150, 0.2f);
+        Tweener alpha1 = graphic.DOColor(new Color(c.r, c.g, c.b, 1), 0.2f);
+        Tweener alpha2 = graphic.DOColor(new Color(c.r, c.g, c.b, 0), 0.2f);
+        mySequence.Append(move1);
+        mySequence.Join(alpha1);
+        //mySequence.AppendInterval(1);
+        mySequence.Append(move2);
+        mySequence.Join(alpha2);
+        mySequence.OnComplete(() => {
+            Destroy(graphic);
+        });
     }
 }

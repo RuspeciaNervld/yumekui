@@ -105,7 +105,7 @@ namespace State {
                 Debug.Log("弹反");
                 SpecialEManager.Instance.DoBulletTime(0.1f, 0.3f);
                 AudioManager.Instance.playSoundEffect("knifeCollision.wav");
-                manager.creature.beHurtController.beHurt(13);
+                manager.creature.beHurtController.beHurt(manager.creature.weapon.touchedWeapon.computedAttack * 2);
 
 
                 manager.creature.weapon.transform.localPosition = new Vector3(-1.25f,-0.01f,0);
@@ -201,6 +201,7 @@ namespace State {
                 if (manager.creature.weapon.touchWeapon) {
                     //todo 被弹反
                     Debug.Log("技能弹反");
+                    manager.creature.beHurtController.beHurt(manager.creature.weapon.touchedWeapon.computedAttack*2);
                     AudioManager.Instance.playSoundEffect("knifeCollision.wav");
                     SpecialEManager.Instance.DoBulletTime(0.12f, 0.25f);
                     manager.creature.attackController.EndAttack();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class ICreature : MonoBehaviour
 {
@@ -26,10 +27,11 @@ public class ICreature : MonoBehaviour
     [Header("=== objects ===")]
     public SpriteRenderer sr;
 
-    public virtual void beHurtAction() {
+    public virtual void beHurtAction(float hurt) {
         //! 变红动画
         sr.DOComplete();
         transform.DOComplete();
+        SpecialEManager.Instance.showHurt(transform.position, hurt);
         SpecialEManager.Instance.DoShake(0.05f, 0.15f);
         SpecialEManager.Instance.DoBulletTime(0.05f, 0.25f);
         sr.DOColor(new Color(1, 0, 0), 0.3f).OnComplete(() => {
@@ -37,6 +39,7 @@ public class ICreature : MonoBehaviour
             sr.DOColor(new Color(1, 1, 1), 0f);
         });
     }
+
     public virtual bool NormalAttack() {
         if (this.attackController.doAttack(weapon.normalAttackHurtTime, weapon.normalAttackEndTime, weapon.NormalAttackHurt, weapon.NormalAttackEnd)) {
             //todo 播放攻击动画
@@ -47,6 +50,7 @@ public class ICreature : MonoBehaviour
         }
     }
 
+    
 
     public virtual bool Skill() {
         if (this.attackController.doAttack(weapon.skillHurtTime, weapon.skillEndTime, weapon.SkillAttackHurt, weapon.SkillAttackEnd)) {

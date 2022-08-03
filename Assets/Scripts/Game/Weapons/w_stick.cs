@@ -19,14 +19,14 @@ public class w_stick : IWeapon {
     }
 
     public override void NormalAttackEnd() {
-        //this.computedAttack = 0;
-        
+        this.computedAttack = 0;
+
     }
 
     public override void NormalAttackHurt() {
         float computedAttack;
         if (user as Player) {
-            computedAttack = user.attack * ((Player)user).farMult + normalAttackPlus;
+            computedAttack = user.attack * ((Player)user).nearMult + normalAttackPlus;
         } else {
             computedAttack = user.attack  + normalAttackPlus;
         }
@@ -61,8 +61,8 @@ public class w_stick : IWeapon {
         fireBall.transform.position = user.transform.position;
         IBullet bullet = fireBall.GetComponent<IBullet>();
         
-        int rand = RusRandomer.randNum(3, 7);
-        for (int i = 0; i < rand; i++) {
+        //int rand = RusRandomer.randNum(3, 7);
+        for (int i = 0; i < 2; i++) {
             EventManager.Instance.DoDelayAction(() => {
                 bullet.Init(computedAttack, user.transform.position);
                 GameObject.Instantiate(fireBall);

@@ -36,9 +36,15 @@ public class BeHurtController : MonoBehaviour
         if (hurtColdTimeCounter > 0) {
             return false;
         }
-        if (computedAttack != 0 && user.canBeHurt) {
-            user.hp -= computedAttack * user.accept;
-            user.beHurtAction();
+        float hurt=0;
+        if (computedAttack >= 0.00001f && user.canBeHurt) {
+            hurt = - computedAttack * user.accept;
+            user.hp += hurt;
+            user.beHurtAction(hurt);
+        } else {
+            hurt = -1;
+            user.hp -= 1;
+            user.beHurtAction(hurt);
         }
         hurtColdTimeCounter = hurtColdTime; // 受到伤害，受伤冷却重置
         hurtRecoverTimeCounter = hurtRecoverTime; // 受到伤害，开始硬直

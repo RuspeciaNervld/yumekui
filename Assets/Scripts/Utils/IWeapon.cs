@@ -6,6 +6,8 @@ public abstract class IWeapon : MonoBehaviour {
     public bool touchWeapon;
     public bool touchPlayer;
 
+    public IWeapon touchedWeapon;
+
     public SpriteRenderer sr;
 
     [Header("=== property settings ===")]
@@ -49,6 +51,7 @@ public abstract class IWeapon : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Weapon")) {
             touchWeapon = true;
+            touchedWeapon = collision.gameObject.GetComponent<IWeapon>();
         }else if (collision.CompareTag("Player")) {
             touchPlayer = true;
         }

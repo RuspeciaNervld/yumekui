@@ -224,7 +224,7 @@ public class Player : ICreature {
         }
     }
 
-    public override void beHurtAction() {
+    public override void beHurtAction(float hurt) {
         sr.DOComplete();
         sr.DOColor(new Color(255, 0, 0), 0.3f).OnComplete(() => {
             sr.DOColor(new Color(255, 255, 255), 0f);

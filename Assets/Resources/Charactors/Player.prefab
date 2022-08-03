@@ -73,8 +73,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touchWeapon: 0
   touchPlayer: 0
+  touchedWeapon: {fileID: 0}
   sr: {fileID: 0}
-  normalAttackHurtTime: 0.1
+  normalAttackHurtTime: 0
   normalAttackEndTime: 0.4
   skillHurtTime: 0
   skillEndTime: 2

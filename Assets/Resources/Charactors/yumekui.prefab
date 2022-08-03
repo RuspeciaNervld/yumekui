@@ -450,13 +450,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touchWeapon: 0
   touchPlayer: 0
+  touchedWeapon: {fileID: 0}
   sr: {fileID: 6708367438823320197}
   normalAttackHurtTime: 0.3
   normalAttackEndTime: 1.5
   skillHurtTime: 0
   skillEndTime: 99999
-  normalAttackPlus: 5
-  normalAttackMult: 2
+  normalAttackPlus: 0
+  normalAttackMult: 1
   skillPlus: 0
   skillMult: 2
   computedAttack: 0
@@ -516,7 +517,7 @@ MonoBehaviour:
   canBeHurt: 1
   hp: 3000
   accept: 1
-  attack: 5
+  attack: 10
   attackController: {fileID: 0}
   beHurtController: {fileID: 0}
   weapon: {fileID: 6708367438823320198}

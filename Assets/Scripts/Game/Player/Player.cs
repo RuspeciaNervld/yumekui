@@ -242,6 +242,9 @@ public class Player : ICreature {
 
     //! 为了考虑武器和身体分离检测，这里覆写
     private void OnTriggerEnter2D(Collider2D collision) {
+        if(canBeHurt && collision.CompareTag("Enemy")) {
+            beHurtController.beHurt(10);
+        }
         //Debug.Log(collision.name);
         //if (canBeHurt && collision.CompareTag("Weapon")) {
         //    Debug.Log("in");

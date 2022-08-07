@@ -78,4 +78,10 @@ public class TestMgr : MonoBehaviour
         //this.player.AddComponent<CharactorCtrl>().init(); //! 可以在这里挂脚本并初始化，可以传递参数，给出特定的数值
         this.player.name = "Player";
     }
+
+    public void reLoadBoss() {
+        GameObject yumekuiPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/yumekui.prefab");
+
+        TestMgr.Instance.enemies.Add(GameObject.Instantiate(yumekuiPrefab));
+    }
 }

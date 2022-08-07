@@ -239,7 +239,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0.76470596, g: 0.21960786, b: 0.098039225, a: 1}
       key1: {r: 0.5943396, g: 0.03177283, b: 0.03177283, a: 1}
       key2: {r: 1, g: 1, b: 1, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -524,7 +524,7 @@ MonoBehaviour:
   wallForce: 5
   targetG: 0
   canDoubleJump: 0
-  canDash: 1
+  canDash: 0
   canStayWall: 1
   canControl: 1
 --- !u!114 &214128341213616583

@@ -160,13 +160,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void FixedUpdate() { // 物理相关的更新放在这里
-        if (dashTimeCounter < 0) {
+        if (!canDash || dashTimeCounter < 0) {
             canControl = true;
             player.canBeHurt = true;
             c2d.enabled = true;
             dashShadow.SetActive(false);
+            rb.velocity = new Vector2(input.xDir * speed * player.playerSpeedMult, rb.velocity.y);
+        } else {
+            rb.velocity = new Vector2(transform.localScale.x * dashSpeed, rb.velocity.y);
         }
-        rb.velocity = new Vector2( (dashTimeCounter < 0 ? input.xDir * speed * player.playerSpeedMult : transform.localScale.x * dashSpeed), rb.velocity.y);
     }
 
     

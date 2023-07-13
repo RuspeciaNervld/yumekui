@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//! Ê¹ÓÃÒ»¸ö½Å±¾£¬À´¹ÜÀí³¡¾°ÖĞ¼¸ºõËùÓĞobject£¬·½±ã²éÕÒ£¬×Ô¶¨Òå»¯´´½¨
+//! ä½¿ç”¨ä¸€ä¸ªè„šæœ¬ï¼Œæ¥ç®¡ç†åœºæ™¯ä¸­å‡ ä¹æ‰€æœ‰objectï¼Œæ–¹ä¾¿æŸ¥æ‰¾ï¼Œè‡ªå®šä¹‰åŒ–åˆ›å»º
 public class TestMgr : MonoBehaviour
 {
-    public static TestMgr Instance = null; //! Ö»ÔÚÒ»¸ö³¡¾°ÖĞÒ»Ö±´æÔÚ,¹ÊÊ¹ÓÃĞ¡µÄ¡°µ¥ÀıÄ£Ê½¡±
+    public static TestMgr Instance = null; //! åªåœ¨ä¸€ä¸ªåœºæ™¯ä¸­ä¸€ç›´å­˜åœ¨,æ•…ä½¿ç”¨å°çš„â€œå•ä¾‹æ¨¡å¼â€
     public GameObject player = null;
     public List<GameObject> enemies = new List<GameObject>();
 
@@ -13,43 +13,43 @@ public class TestMgr : MonoBehaviour
         TestMgr.Instance = this;
     }
 
-    // ¹¥»÷ÕÒ¶ÔÏóµÄÊ±ºò£¬ÎÒÃÇ·ÅGameMgrÀïÃæÀ´Ìá¹©²ßÂÔ;
+    // æ”»å‡»æ‰¾å¯¹è±¡çš„æ—¶å€™ï¼Œæˆ‘ä»¬æ”¾GameMgré‡Œé¢æ¥æä¾›ç­–ç•¥;
     public List<GameObject> findCharactorInRaidus(Vector3 center, float radius) {
-        // ËÄ³¡Ê÷µÄ³¡¾°¹ÜÀí
+        // å››åœºæ ‘çš„åœºæ™¯ç®¡ç†
         // end
 
-        // ¾Å¹¬¸ñµÄ³¡¾°¹ÜÀí
+        // ä¹å®«æ ¼çš„åœºæ™¯ç®¡ç†
         // end
 
         return this.enemies;
     }
     public void InitGame() {
-        //todo ²¥·Åbgm
+        //todo æ’­æ”¾bgm
         AudioManager.Instance.playBgm("Angel fall down.wav");
         AudioManager.Instance.setBgmVolume(0.4f);
         
-        //todo ¼ÓÔØ³¡¾°ÄÚ¶ÀÁ¢½Å±¾²¢³õÊ¼»¯
+        //todo åŠ è½½åœºæ™¯å†…ç‹¬ç«‹è„šæœ¬å¹¶åˆå§‹åŒ–
         //gameObject.AddComponent<DialogueManager>().init("Save&Load/TestDialogues.csv",0.1f);
         //end
 
-        //todo ·ÅÎÒÃÇµÄNPC;
+        //todo æ”¾æˆ‘ä»¬çš„NPC;
         GameObject yumekuiPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/yumekui.prefab");
         
         enemies.Add(GameObject.Instantiate(yumekuiPrefab));
         
         // end
 
-        //todo ·ÅÎÒÃÇµÄPlayer½ÇÉ«
-        GameObject charactorPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/Player.prefab");
+        //todo æ”¾æˆ‘ä»¬çš„Playerè§’è‰²
+        GameObject charactorPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/Player_1.prefab");
         this.player = GameObject.Instantiate(charactorPrefab);
-        //this.player.AddComponent<CharactorCtrl>().init(); //! ¿ÉÒÔÔÚÕâÀï¹Ò½Å±¾²¢³õÊ¼»¯£¬¿ÉÒÔ´«µİ²ÎÊı£¬¸ø³öÌØ¶¨µÄÊıÖµ
+        //this.player.AddComponent<CharactorCtrl>().init(); //! å¯ä»¥åœ¨è¿™é‡ŒæŒ‚è„šæœ¬å¹¶åˆå§‹åŒ–ï¼Œå¯ä»¥ä¼ é€’å‚æ•°ï¼Œç»™å‡ºç‰¹å®šçš„æ•°å€¼
         this.player.name = "Player";
         //this.player.AddComponent<PlayerOpt>().init();
         //this.player.AddComponent<Player>().init(/*100, 10, 5,*/true,0,0);
         
         // end
 
-        //todo ·ÅÎÒÃÇµÄµĞÈË
+        //todo æ”¾æˆ‘ä»¬çš„æ•Œäºº
         //GameObject e = GameObject.Instantiate(charactorPrefab);
         //e.name = "enemy";
         //Vector3 pos = e.transform.position;
@@ -65,17 +65,17 @@ public class TestMgr : MonoBehaviour
             Destroy(obj);
         }
         Destroy(player);
-        //todo ·ÅÎÒÃÇµÄNPC;
+        //todo æ”¾æˆ‘ä»¬çš„NPC;
         GameObject yumekuiPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/yumekui.prefab");
 
         enemies.Add(GameObject.Instantiate(yumekuiPrefab));
 
         // end
 
-        //todo ·ÅÎÒÃÇµÄPlayer½ÇÉ«
-        GameObject charactorPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/Player.prefab");
+        //todo æ”¾æˆ‘ä»¬çš„Playerè§’è‰²
+        GameObject charactorPrefab = ResourceManager.Instance.GetAssetCache<GameObject>("Charactors/Player_1.prefab");
         this.player = GameObject.Instantiate(charactorPrefab);
-        //this.player.AddComponent<CharactorCtrl>().init(); //! ¿ÉÒÔÔÚÕâÀï¹Ò½Å±¾²¢³õÊ¼»¯£¬¿ÉÒÔ´«µİ²ÎÊı£¬¸ø³öÌØ¶¨µÄÊıÖµ
+        //this.player.AddComponent<CharactorCtrl>().init(); //! å¯ä»¥åœ¨è¿™é‡ŒæŒ‚è„šæœ¬å¹¶åˆå§‹åŒ–ï¼Œå¯ä»¥ä¼ é€’å‚æ•°ï¼Œç»™å‡ºç‰¹å®šçš„æ•°å€¼
         this.player.name = "Player";
     }
 

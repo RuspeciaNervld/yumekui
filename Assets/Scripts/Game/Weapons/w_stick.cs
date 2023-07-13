@@ -20,7 +20,6 @@ public class w_stick : IWeapon {
 
     public override void NormalAttackEnd() {
         this.computedAttack = 0;
-
     }
 
     public override void NormalAttackHurt() {

@@ -15,7 +15,7 @@ public class SliderCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Player player =  TestMgr.Instance.player.GetComponent<Player>();
+        Player player =  TestMgr.Instance.player.GetComponentInChildren<Player>();
         player.tendency = slider.value;
     }
 }

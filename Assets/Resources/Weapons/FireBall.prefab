@@ -4815,6 +4815,7 @@ GameObject:
   - component: {fileID: 4844987115172362054}
   - component: {fileID: 2065371236330687224}
   - component: {fileID: 4653902560127608532}
+  - component: {fileID: 7989618069671285468}
   m_Layer: 10
   m_Name: FireBall
   m_TagString: Weapon
@@ -4830,7 +4831,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3110132898744109751}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.54, y: -3.1857002, z: 0}
+  m_LocalPosition: {x: -5.8837967, y: -3.458867, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7356072090814735889}
@@ -4855,11 +4856,11 @@ MonoBehaviour:
   attack: 20
   speed: 10
   initiailized: 1
-  midPos: {x: 0, y: 0}
-  startPos: {x: -7.54, y: -3.1857002}
-  lastTargetPos: {x: 0, y: 0}
+  midPos: {x: -4.689724, y: -3.6735823}
+  startPos: {x: -5.8837967, y: -3.458867}
+  lastTargetPos: {x: 6, y: -3.18}
   target: {fileID: 0}
-  percentSpeed: 0.7404916
+  percentSpeed: 0.84125036
   percent: 0
 --- !u!58 &4653902560127608532
 CircleCollider2D:
@@ -4877,6 +4878,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.55
+--- !u!50 &7989618069671285468
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110132898744109751}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3178551564997133305
 GameObject:
   m_ObjectHideFlags: 0

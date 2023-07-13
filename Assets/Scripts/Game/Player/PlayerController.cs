@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
         rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<Player>();
+        player = GetComponentInChildren<Player>();
         keyInput = GetComponent<KeyboardInput>();
         joyInput = GetComponent<JoystickInput>();
         input = keyInput;

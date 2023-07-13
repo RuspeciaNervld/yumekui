@@ -128,19 +128,19 @@ public class Player : ICreature {
 
 
     private void Awake() {
-        anim = GetComponent<Animator>();
-        moveController = GetComponent<PlayerController>();
+        anim = GetComponentInParent<Animator>();
+        moveController = GetComponentInParent<PlayerController>();
         
     }
 
     // Update is called once per frame
     private void Update() {
-        Debugger.Instance.logs[0].text = "角色血量：" + hp;
+        
+        Debugger.Instance.logs[0].text = "角色血量：" + hp/*.ToString("N5")*/;
         Debugger.Instance.logs[3].text = "近伤倍率：" + nearMult;
         Debugger.Instance.logs[4].text = "远伤倍率：" + farMult;
         Debugger.Instance.logs[5].text = "移速倍率：" + playerSpeedMult;
         Debugger.Instance.logs[6].text = "承伤倍率：" + accept;
-
 
 
         if (hp <= 0) {
@@ -184,28 +184,6 @@ public class Player : ICreature {
         }
 
     }
-
-    //private void onSkillHurt() {
-    //    //todo 找到受到伤害的生物，计算出自己的攻击，传给对方的受伤函数，最终由对方计算实际伤害
-    //}
-
-    //private void onSkillEnd() {
-    //    //todo 结束动画,恢复状态，也可以调用敌人的受伤结束函数，产生击退或者处刑效果等
-    //}
-
-
-
-    //public void onSkillAttack() {
-    //    Debug.Log("技能发动");
-    //    skillAttack = 2;
-    //    skillHurtTime = 1.0f;
-    //    skillEndTime = 1.4f;
-    //    skillAttackRadius = 1.0f;
-
-    //    if (this.attackController.doAttack(skillHurtTime, skillEndTime, onSkillHurt, onSkillEnd)) {
-    //        //todo 播放攻击动画
-    //    }
-    //}
 
    new public void  NormalAttack() {
         if (this.attackController.doAttack(weapon.normalAttackHurtTime, weapon.normalAttackEndTime, weapon.NormalAttackHurt, weapon.NormalAttackEnd)) {

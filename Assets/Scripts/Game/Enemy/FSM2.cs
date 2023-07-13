@@ -36,6 +36,8 @@ namespace State2 {
 
         // Start is called before the first frame update
         void Start() {
+            nose = GetComponentInChildren<IWeapon>().gameObject;
+
             states.Add(StateType.Idle, new IdleState(this));
             states.Add(StateType.Attack, new normalAttackState(this));
             states.Add(StateType.Chase, new ChaseState(this));

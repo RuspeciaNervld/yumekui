@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
 
 public class ICreature : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class ICreature : MonoBehaviour
 
     [Header("=== objects ===")]
     public SpriteRenderer sr;
+    public GameObject defaultWeapon = null;
 
     public virtual void beHurtAction(float hurt) {
         //! 变红动画
@@ -79,7 +81,15 @@ public class ICreature : MonoBehaviour
         if (canAttack) {
             attackController = gameObject.AddComponent<AttackController>();
             attackController.init();
-            weapon = GetComponentInChildren<IWeapon>();
+            //todo 放置一个默认武器，可以是无法攻击的武器
+            GameObject firstWeapon;
+            if (defaultWeapon == null) {
+                GameObject emptyWeapon = ResourceManager.Instance.GetAssetCache<GameObject>("Weapons/empty.prefab");
+                firstWeapon = GameObject.Instantiate(emptyWeapon, gameObject.transform.parent);
+            } else {
+                firstWeapon = GameObject.Instantiate(defaultWeapon, gameObject.transform.parent);
+            }
+            weapon = firstWeapon.GetComponent<IWeapon>();
         }
         if (canBeHurt) {
             beHurtController = gameObject.AddComponent<BeHurtController>();
@@ -105,7 +115,15 @@ public class ICreature : MonoBehaviour
         if (canAttack) {
             attackController = gameObject.AddComponent<AttackController>();
             attackController.init();
-            weapon = GetComponentInChildren<IWeapon>();
+            //todo 放置一个默认武器，可以是无法攻击的武器
+            GameObject firstWeapon;
+            if (defaultWeapon == null) {
+                GameObject emptyWeapon = ResourceManager.Instance.GetAssetCache<GameObject>("Weapons/empty.prefab");
+                firstWeapon = GameObject.Instantiate(emptyWeapon, gameObject.transform.parent);
+            } else {
+                firstWeapon = GameObject.Instantiate(defaultWeapon, gameObject.transform.parent);
+            }
+            weapon = firstWeapon.GetComponent<IWeapon>();
         }
 
         beHurtController = gameObject.AddComponent<BeHurtController>();
@@ -115,7 +133,9 @@ public class ICreature : MonoBehaviour
 
     private void Start() {
         init(canAttack, hurtColdTime,hurtRecoverTime);
-        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
+        if (sr == null) {
+            sr = gameObject.GetComponentInChildren<SpriteRenderer>();
+        }
     }
 
     //! 这是一种有实体的受伤方式，另一种由对方直接调用函数

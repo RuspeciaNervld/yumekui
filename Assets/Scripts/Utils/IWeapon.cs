@@ -27,7 +27,7 @@ public abstract class IWeapon : MonoBehaviour {
     protected Collider2D c2d;
 
     public void Awake() {
-        user = GetComponentInParent<ICreature>();
+        user = transform.parent.gameObject.GetComponentInChildren<ICreature>();
         //anim = GetComponent<Animator>();
         c2d = GetComponent<Collider2D>();
         c2d.isTrigger = true;
